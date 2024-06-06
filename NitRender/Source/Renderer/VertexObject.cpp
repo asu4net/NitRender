@@ -1,6 +1,6 @@
 #include "VertexObject.h"
 #include "Renderer.h"
-#include "Platform/OpenGLVertexObject.h"
+#include "Platform/OpenGL/OpenGLVertexObject.h"
 
 namespace Nit
 {

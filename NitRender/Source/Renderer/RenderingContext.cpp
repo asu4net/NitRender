@@ -1,15 +1,15 @@
-#include "RenderAPI.h"
+#include "RenderingContext.h"
 #include "Renderer.h"
-#include "Platform/OpenGLRenderAPI.h"
+#include "Platform/OpenGL/OpenGLRenderingContext.h"
 
 namespace Nit
 {
-    std::shared_ptr<RenderAPI> RenderAPI::Create()
+    std::unique_ptr<RenderingContext> RenderingContext::Create(void* windowHandler)
     {
         switch (Renderer::GetGraphicsAPI())
         {
         case GraphicsAPI::OpenGL:
-            return std::shared_ptr<OpenGLRenderAPI>();
+            return std::make_unique<OpenGLRenderingContext>(windowHandler);
         case GraphicsAPI::None:
         default:
             assert(false && "Invalid API");
