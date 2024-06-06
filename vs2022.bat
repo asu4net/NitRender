@@ -1,0 +1,1 @@
+call ThirdParty\premake\premake5.exe --file=Workspace.lua vs2022
