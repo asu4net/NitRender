@@ -1,5 +1,11 @@
 #pragma once
 
 #include "NitRenderPCH.h"
-#include "Window/Window.h"
+
 #include "Renderer/Renderer.h"
+#include "Renderer/RenderAPI.h"
+#include "Renderer/RenderingContext.h"
+#include "Renderer/Shader.h"
+#include "Renderer/VertexObject.h"
+
+#include "Window/Window.h"
