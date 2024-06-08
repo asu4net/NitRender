@@ -2,10 +2,12 @@
 
 namespace Nit
 {
+    using ShaderPtr = std::shared_ptr<class Shader>;
+
     class Shader
     {
     public:
-        static std::shared_ptr<Shader> Create();
+        static ShaderPtr Create();
 
         virtual void Compile(const char* vertexSource, const char* fragmentSource) = 0;
         

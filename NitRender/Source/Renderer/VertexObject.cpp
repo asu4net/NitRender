@@ -4,7 +4,7 @@
 
 namespace Nit
 {
-    std::shared_ptr<Nit::VertexBuffer> VertexBuffer::Create(const void* vertices, uint32_t size)
+    std::shared_ptr<VertexBuffer> VertexBuffer::Create(const void* vertices, uint32_t size)
     {
         switch (Renderer::GetGraphicsAPI())
         {
@@ -17,7 +17,7 @@ namespace Nit
         }
     }
 
-    std::shared_ptr<Nit::VertexBuffer> VertexBuffer::Create(uint32_t size)
+    std::shared_ptr<VertexBuffer> VertexBuffer::Create(uint32_t size)
     {
         return std::make_shared<OpenGLVertexBuffer>(size);
     }

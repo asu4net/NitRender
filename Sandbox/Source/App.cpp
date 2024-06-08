@@ -134,7 +134,7 @@ int main(int argc, char* argv[])
 
         for (uint32_t i = 0; i < 4; ++i)
         {
-            quad[i].Position = proj * view * spriteTransform.GetMatrix() * QuadVertexPos[i];
+            quad[i].Position = proj * view * spriteTransform.GetMatrix() *  QuadVertexPos[i];
         }
 
         VBO->SetData(quad, sizeof(QuadVertex) * 4);

@@ -4,7 +4,7 @@
 
 namespace Nit
 {
-    std::shared_ptr<Shader> Shader::Create()
+    ShaderPtr Shader::Create()
     {
         switch (Renderer::GetGraphicsAPI())
         {

@@ -13,7 +13,8 @@ project "NitRender"
         "Source",
         "%{IncludeDirs.glfw}",
         "%{IncludeDirs.glad}",
-        "%{IncludeDirs.glm}"
+        "%{IncludeDirs.glm}",
+        "%{IncludeDirs.stb}"
     }
     
     links

@@ -31,4 +31,24 @@ namespace Nit
     {
         None, OpenGL
     };
+
+    enum class MinificationFilter 
+    { 
+        Linear, Nearest 
+    };
+
+    enum class MagnificationFilter 
+    { 
+        Linear, Nearest 
+    };
+    
+    enum class TextureWrapMode 
+    { 
+        Repeat, ClampToEdge 
+    };
+    
+    enum class TextureCoordinate 
+    { 
+        U, V 
+    };
 }
