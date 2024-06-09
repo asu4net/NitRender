@@ -8,8 +8,9 @@ namespace Nit
     public:
         OpenGLTexture2D();
         ~OpenGLTexture2D();
-
-        void UploadToGPU(const Texture2DSettings& settings, const void* data) override;
+        
+        void UploadToGPU(const void* data, uint32_t Width, uint32_t Height, uint32_t Channels, const Texture2DSettings& settings = {}) override;
+        void UploadToGPU(const Image& image, const Texture2DSettings& settings = {}) override;
         uint32_t GetTextureID() const override { return m_TextureID; }
         void Bind(uint32_t slot = 0) const override;
 

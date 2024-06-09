@@ -45,10 +45,10 @@ namespace Nit
         glDeleteTextures(1, &m_TextureID);
     }
 
-    void OpenGLTexture2D::UploadToGPU(const Texture2DSettings& settings, const void* data)
+    void OpenGLTexture2D::UploadToGPU(const void* data, uint32_t Width, uint32_t Height, uint32_t Channels, const Texture2DSettings& settings)
     {
         assert(data && "Missing texture data!");
-        assert(settings.Width && settings.Height && "Invalid width or height!");
+        assert(Width && Height && "Invalid width or height!");
 
         if (m_Uploaded)
         {
@@ -58,19 +58,19 @@ namespace Nit
 
         GLenum internalFormat = 0, dataFormat = 0;
 
-        if (settings.Channels == 4)
+        if (Channels == 4)
         {
             internalFormat = GL_RGBA8;
             dataFormat = GL_RGBA;
         }
-        else if (settings.Channels == 3)
+        else if (Channels == 3)
         {
             internalFormat = GL_RGB8;
             dataFormat = GL_RGB;
         }
 
         glCreateTextures(GL_TEXTURE_2D, 1, &m_TextureID);
-        glTextureStorage2D(m_TextureID, 1, internalFormat, settings.Width, settings.Height);
+        glTextureStorage2D(m_TextureID, 1, internalFormat, Width, Height);
 
         SetMinFilter(m_TextureID, settings.MinFilter);
         SetMagFilter(m_TextureID, settings.MagFilter);
@@ -78,10 +78,22 @@ namespace Nit
         SetWrapMode(m_TextureID, TextureCoordinate::U, settings.WrapModeU);
         SetWrapMode(m_TextureID, TextureCoordinate::V, settings.WrapModeV);
 
-        glTextureSubImage2D(m_TextureID, 0, 0, 0, settings.Width, settings.Height,
+        glTextureSubImage2D(m_TextureID, 0, 0, 0, Width, Height,
             dataFormat, GL_UNSIGNED_BYTE, data);
 
         m_Uploaded = true;
+    }
+
+    void OpenGLTexture2D::UploadToGPU(const Image& image, const Texture2DSettings& settings)
+    {
+        void* data = image.GetData();
+        if (!data)
+        {
+            assert(false && "Image is not loaded!");
+            return;
+        }
+
+        UploadToGPU(image.GetData(), image.GetWidth(), image.GetHeight(), image.GetChannels(), settings);
     }
 
     void OpenGLTexture2D::Bind(const uint32_t slot) const
