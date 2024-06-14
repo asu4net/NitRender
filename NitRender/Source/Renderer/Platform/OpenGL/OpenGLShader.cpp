@@ -118,27 +118,65 @@ namespace Nit
         m_Compiled = true;
     }
 
-    void OpenGLShader::SetUniformMat4(const char* uniformName, const glm::mat4& mat) const
+    static ShaderDataType ShaderDataTypeFromOpenGL(int32_t type)
     {
-        const uint32_t id = glGetUniformLocation(m_ShaderId, uniformName);
+        switch (type)
+        {
+        case GL_FLOAT:      return ShaderDataType::Float;
+        case GL_FLOAT_VEC2: return ShaderDataType::Float2;
+        case GL_FLOAT_VEC3: return ShaderDataType::Float3;
+        case GL_FLOAT_VEC4: return ShaderDataType::Float4;
+        case GL_FLOAT_MAT3: return ShaderDataType::Mat3;
+        case GL_FLOAT_MAT4: return ShaderDataType::Mat4;
+        case GL_INT:        return ShaderDataType::Int;
+        case GL_INT_VEC2:   return ShaderDataType::Int2;
+        case GL_INT_VEC3:   return ShaderDataType::Int3;
+        case GL_INT_VEC4:   return ShaderDataType::Int4;
+        case GL_BOOL:       return ShaderDataType::Bool;
+        default:            return ShaderDataType::None;
+        }
+    }
+
+    void OpenGLShader::GetConstantCollection(std::vector<ConstantUniquePtr>& constants) const
+    {
+        int32_t uniformCount;
+        glGetProgramiv(m_ShaderId, GL_ACTIVE_UNIFORMS, &uniformCount);
+
+        for (int32_t i = 0; i < uniformCount; ++i)
+        {
+            constexpr int32_t bufSize = 16;
+            char name[bufSize];
+            uint32_t type;
+            int32_t lenght;
+            int32_t size;
+            glGetActiveUniform(m_ShaderId, i, bufSize, &lenght, &size, &type, name);
+            auto constant = Constant::CreateUnique(std::string(name), ShaderDataTypeFromOpenGL(type), size);
+            if (!constant) { continue; }
+            constants.push_back(std::move(constant));
+        }
+    }
+
+    void OpenGLShader::SetConstantMat4(const char* constantName, const glm::mat4& mat) const
+    {
+        const uint32_t id = glGetUniformLocation(m_ShaderId, constantName);
         glUniformMatrix4fv(id, 1, false, glm::value_ptr(mat));
     }
 
-    void OpenGLShader::SetUniformVec4(const char* uniformName, const glm::vec4& vec) const
+    void OpenGLShader::SetConstantVec4(const char* constantName, const glm::vec4& vec) const
     {
-        const uint32_t id = glGetUniformLocation(m_ShaderId, uniformName);
+        const uint32_t id = glGetUniformLocation(m_ShaderId, constantName);
         glUniform4fv(id, 1, glm::value_ptr(vec));
     }
 
-    void OpenGLShader::SetUniformInt(const char* uniformName, const int num)
+    void OpenGLShader::SetConstantInt(const char* constantName, const int num)
     {
-        const uint32_t id = glGetUniformLocation(m_ShaderId, uniformName);
+        const uint32_t id = glGetUniformLocation(m_ShaderId, constantName);
         glUniform1i(id, num);
     }
 
-    void OpenGLShader::SetUniformIntArray(const char* uniformName, const int32_t* array, const int32_t size)
+    void OpenGLShader::SetConstantIntArray(const char* constantName, const int32_t* array, const int32_t size)
     {
-        const uint32_t id = glGetUniformLocation(m_ShaderId, uniformName);
+        const uint32_t id = glGetUniformLocation(m_ShaderId, constantName);
         glUniform1iv(id, size, array);
     }
 

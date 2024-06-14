@@ -29,7 +29,7 @@ namespace Nit
         Image();
         Image(const char* filePath);
         Image(const Image& other) = delete;
-        Image(Image&& other);
+        Image(Image&& other) noexcept;
         ~Image();
 
         Image& operator=(const Image& other) = delete;

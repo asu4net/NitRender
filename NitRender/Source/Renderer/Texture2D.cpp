@@ -26,7 +26,7 @@ namespace Nit
         Load(filePath);
     }
 
-    Image::Image(Image&& other) 
+    Image::Image(Image&& other) noexcept
         : m_Data(other.m_Data)
         , m_Width(other.m_Width)
         , m_Height(other.m_Height)

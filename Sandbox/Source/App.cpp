@@ -55,14 +55,15 @@ const char* FragmentShaderSource = R"(
         
         layout(location = 0) out vec4 color;
         
+        uniform vec4      u_TintColor;
         uniform sampler2D u_TextureSlots[32];
-        
-        in vec2     v_UVCoords;
-        flat in int v_TextureSlot;
+
+        in vec2      v_UVCoords;
+        flat in int  v_TextureSlot;
 
         void main()
         {
-            color = texture(u_TextureSlots[v_TextureSlot], v_UVCoords) * vec4(1.f, 1.f, 1.f, 1.f);
+            color = texture(u_TextureSlots[v_TextureSlot], v_UVCoords) * u_TintColor;
         }
     )";
 
@@ -158,6 +159,9 @@ int main(int argc, char* argv[])
     float nearClip = 0.1f;
     float farClip  = 1000.f;
 
+    std::vector<ConstantUniquePtr> uniforms;
+    shader->GetConstantCollection(uniforms);
+
 	while (window->IsOpened())
 	{
         renderAPI->Clear();
@@ -176,7 +180,7 @@ int main(int argc, char* argv[])
 
         VBO->SetData(quad, sizeof(QuadVertex) * 4);
         shader->Bind();
-        shader->SetUniformIntArray("u_TextureSlots", &textureSlots.front(), MaxTextureSlots);
+        shader->SetConstantIntArray("u_TextureSlots", &textureSlots.front(), MaxTextureSlots);
         texture->Bind(0);
         renderAPI->DrawElements(VAO, IBO->GetCount());
 		window->Update();
