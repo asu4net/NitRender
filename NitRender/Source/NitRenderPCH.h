@@ -54,7 +54,7 @@ namespace Nit
 
     enum class ShaderDataType
     {
-        None = 0, Float, Float2, Float3, Float4, Mat3, Mat4, Int, Int2, Int3, Int4, Bool
+        None = 0, Float, Float2, Float3, Float4, Mat3, Mat4, Int, Sampler2D, Int2, Int3, Int4, Bool
     };
 
     inline static uint32_t ShaderDataTypeToSize(const ShaderDataType type)
@@ -68,6 +68,7 @@ namespace Nit
         case ShaderDataType::Mat3:      return 4 * 3 * 3;
         case ShaderDataType::Mat4:      return 4 * 4 * 4;
         case ShaderDataType::Int:       return 4;
+        case ShaderDataType::Sampler2D: return 4 * 32;
         case ShaderDataType::Int2:      return 4 * 2;
         case ShaderDataType::Int3:      return 4 * 3;
         case ShaderDataType::Int4:      return 4 * 4;
@@ -88,6 +89,7 @@ namespace Nit
         case ShaderDataType::Mat3:      return new float[9];
         case ShaderDataType::Mat4:      return new float[16];
         case ShaderDataType::Int:       return new int32_t;
+        case ShaderDataType::Sampler2D: return new int32_t[32];
         case ShaderDataType::Int2:      return new int32_t[2];
         case ShaderDataType::Int3:      return new int32_t[3];
         case ShaderDataType::Int4:      return new int32_t[4];

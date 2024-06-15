@@ -12,18 +12,22 @@ namespace Nit
         void Compile(const char* vertexSource, const char* fragmentSource) override;
 
         void GetConstantCollection(std::vector<ConstantUniquePtr>& constants) const override;
-        void SetConstantMat4(const char* constantName, const glm::mat4& mat) const override;
-        void SetConstantVec4(const char* constantName, const glm::vec4& vec) const override;
-        void SetConstantInt(const char* constantName, int num) override;
-        void SetConstantIntArray(const char* constantName, const int32_t* array, int32_t size) override;
 
-        void Bind() const override;
+        void SetConstantFloat     (const char* name, float value)                        const override;
+        void SetConstantVec2      (const char* name, const float* value)                 const override;
+        void SetConstantVec3      (const char* name, const float* value)                 const override;
+        void SetConstantVec4      (const char* name, const float* value)                 const override;
+        void SetConstantMat4      (const char* name, const float* value)                 const override;
+        void SetConstantInt       (const char* name, int value)                          const override;
+        void SetConstantSampler2D (const char* name, const int32_t* value, int32_t size) const override;
+
+        void Bind()   const override;
         void Unbind() const override;
 
     private:
         
         ShaderPtr m_SharedPtr = nullptr;
-        uint32_t  m_ShaderId   = 0;
-        bool      m_Compiled       = false;
+        uint32_t  m_ShaderId  = 0;
+        bool      m_Compiled  = false;
     };
 }

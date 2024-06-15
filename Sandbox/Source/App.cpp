@@ -1,4 +1,5 @@
 #include "NitRender.h"
+#include "Renderer\Material.h"
 
 using namespace Nit;
 
@@ -159,8 +160,9 @@ int main(int argc, char* argv[])
     float nearClip = 0.1f;
     float farClip  = 1000.f;
 
-    std::vector<ConstantUniquePtr> uniforms;
-    shader->GetConstantCollection(uniforms);
+    Material material(shader);
+    material.SetConstantVec4("u_TintColor", { 1, 0, 0, 1 });
+    material.SetConstantSampler2D("u_TextureSlots[", &textureSlots.front(), MaxTextureSlots);
 
 	while (window->IsOpened())
 	{
@@ -179,8 +181,7 @@ int main(int argc, char* argv[])
         }
 
         VBO->SetData(quad, sizeof(QuadVertex) * 4);
-        shader->Bind();
-        shader->SetConstantIntArray("u_TextureSlots", &textureSlots.front(), MaxTextureSlots);
+        material.SubmitConstants();
         texture->Bind(0);
         renderAPI->DrawElements(VAO, IBO->GetCount());
 		window->Update();

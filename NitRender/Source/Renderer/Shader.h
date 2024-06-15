@@ -26,6 +26,12 @@ namespace Nit
         Constant(Constant&& other) noexcept;
         Constant& operator=(Constant&& other) noexcept;
 
+        int32_t*             GetIntData()   const { return m_IntData;   }
+        float*               GetFloatData() const { return m_FloatData; }
+        const std::string&   GetName()      const { return m_Name;      }
+        ShaderDataType       GetType()      const { return m_Type;      }
+        int32_t              GetSize()      const { return m_Size;      }
+
         ~Constant();
 
     private:
@@ -50,11 +56,15 @@ namespace Nit
         virtual void Compile(const char* vertexSource, const char* fragmentSource) = 0;
         
         virtual void GetConstantCollection(std::vector<ConstantUniquePtr>& constants) const = 0;
-        virtual void SetConstantMat4(const char* constantName, const glm::mat4& mat) const = 0;
-        virtual void SetConstantVec4(const char* constantName, const glm::vec4& vec) const = 0;
-        virtual void SetConstantInt(const char* constantName, int num) = 0;
-        virtual void SetConstantIntArray(const char* constantName, const int32_t* array, int32_t size) = 0;
-
+        
+        virtual void SetConstantFloat     (const char* name, float value)                        const = 0;
+        virtual void SetConstantVec2      (const char* name, const float* value)                 const = 0;
+        virtual void SetConstantVec3      (const char* name, const float* value)                 const = 0;
+        virtual void SetConstantVec4      (const char* name, const float* value)                 const = 0;
+        virtual void SetConstantMat4      (const char* name, const float* value)                 const = 0;
+        virtual void SetConstantInt       (const char* name, int value)                          const = 0;
+        virtual void SetConstantSampler2D (const char* name, const int32_t* value, int32_t size) const = 0;
+        
         virtual void Bind() const = 0;
         virtual void Unbind() const = 0;
     };
