@@ -1,12 +1,12 @@
 #include "RenderingContext.h"
-#include "Renderer.h"
+#include "RenderAPI.h"
 #include "Platform/OpenGL/OpenGLRenderingContext.h"
 
 namespace Nit
 {
     std::unique_ptr<RenderingContext> RenderingContext::Create(void* windowHandler)
     {
-        switch (Renderer::GetGraphicsAPI())
+        switch (GetGraphicsAPI())
         {
         case GraphicsAPI::OpenGL:
             return std::make_unique<OpenGLRenderingContext>(windowHandler);

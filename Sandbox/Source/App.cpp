@@ -139,7 +139,7 @@ int main(int argc, char* argv[])
     texture->UploadToGPU(image);
     image.Free();
 
-    auto renderAPI = RenderAPI::Create();
+    RenderAPIPtr renderAPI = RenderAPI::Create();
     renderAPI->SetClearColor({ .2f, .2f, .2f, 1 });
     renderAPI->SetBlendingEnabled(true);
     renderAPI->SetBlendingMode(BlendingMode::Alpha);

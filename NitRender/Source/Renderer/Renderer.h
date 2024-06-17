@@ -3,11 +3,10 @@
 
 namespace Nit::Renderer 
 {
-    GraphicsAPI GetGraphicsAPI();
-    void SetGraphicsAPI(GraphicsAPI api);
-
     struct RenderInitArgs
     {
-        GraphicsAPI API = GraphicsAPI::OpenGL;
     };
+
+    void Init(const RenderInitArgs args = {});
+    void Finish();
 }

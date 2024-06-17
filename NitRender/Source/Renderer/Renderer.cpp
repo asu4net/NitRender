@@ -1,21 +1,33 @@
 #include "Renderer.h"
+#include "RenderAPI.h"
 
 namespace Nit::Renderer
 {
     struct RendererContext
     {
-        GraphicsAPI API = GraphicsAPI::OpenGL;
+        RenderAPIPtr API = nullptr;
     };
 
-    RendererContext* ctx = new RendererContext();
-
-    Nit::GraphicsAPI GetGraphicsAPI()
+    RendererContext* ctx = nullptr;
+    
+    void Init(const RenderInitArgs args)
     {
-        assert(ctx); return ctx->API;
+        if (ctx)
+        {
+            assert(false);
+            return;
+        }
+
+        ctx = new RendererContext();
+        ctx->API = RenderAPI::Create();
     }
-
-    void SetGraphicsAPI(GraphicsAPI api)
+    
+    void Finish()
     {
-        assert(ctx); ctx->API = api;
+        if (ctx)
+        {
+            delete ctx;
+            ctx = nullptr;
+        }
     }
 }
