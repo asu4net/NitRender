@@ -1,5 +1,5 @@
 #include "Shader.h"
-#include "RenderAPI.h"
+#include "Renderer.h"
 #include "Platform/OpenGL/OpenGLShader.h"
 
 namespace Nit
@@ -51,7 +51,7 @@ namespace Nit
 
     ShaderPtr Shader::Create()
     {
-        switch (GetGraphicsAPI())
+        switch (Renderer::GetGraphicsAPI())
         {
         case GraphicsAPI::OpenGL:
             return std::make_shared<OpenGLShader>();

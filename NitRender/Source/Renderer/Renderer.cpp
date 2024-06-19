@@ -5,10 +5,14 @@ namespace Nit::Renderer
 {
     struct RendererContext
     {
-        RenderAPIPtr API = nullptr;
+        GraphicsAPI  graphicsAPI = GraphicsAPI::None;
+        RenderAPIPtr renderAPI   = nullptr;
     };
 
     RendererContext* ctx = nullptr;
+    
+    GraphicsAPI GetGraphicsAPI() { assert(ctx); return ctx->graphicsAPI; }
+    RenderAPIPtr GetRenderAPI()  { assert(ctx); return ctx->renderAPI; }
     
     void Init(const RenderInitArgs args)
     {
@@ -19,7 +23,8 @@ namespace Nit::Renderer
         }
 
         ctx = new RendererContext();
-        ctx->API = RenderAPI::Create();
+        ctx->graphicsAPI = args.graphicsAPI;
+        ctx->renderAPI   = RenderAPI::Create();
     }
     
     void Finish()

@@ -7,9 +7,6 @@ namespace Nit
 
     using RenderAPIPtr = std::shared_ptr<RenderAPI>;
 
-    GraphicsAPI  GetGraphicsAPI();
-    void         SetGraphicsAPI(GraphicsAPI api);
-
     class RenderAPI
     {
     public:
@@ -23,6 +20,5 @@ namespace Nit
         virtual void SetBlendingMode(const BlendingMode blendingMode) const = 0;
         virtual void DrawElements(const std::shared_ptr<VertexArray>& vertexArray, uint32_t elementCount) const = 0;
         virtual void SetDepthTestEnabled(bool bEnabled) const = 0;
-        virtual GraphicsAPI GetGraphicsAPI() const = 0;
     };
 }

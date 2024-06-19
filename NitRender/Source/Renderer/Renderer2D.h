@@ -1,9 +1,15 @@
 #pragma once
 
+
+namespace Nit
+{
+    struct Render2DInitArgs
+    {
+    };
+}
+
 namespace Nit::Renderer2D
 {
-    struct Renderer2DContext
-    {
-
-    };
+    void Init(const Render2DInitArgs args = {});
+    void Finish();
 }

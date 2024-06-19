@@ -18,6 +18,5 @@ namespace Nit
         void SetBlendingMode(const BlendingMode blendingMode) const override;
         void DrawElements(const std::shared_ptr<VertexArray>& vertexArray, uint32_t elementCount) const override;
         void SetDepthTestEnabled(bool bEnabled) const override;
-        GraphicsAPI GetGraphicsAPI() const override { return GraphicsAPI::OpenGL; }
     };
 }
