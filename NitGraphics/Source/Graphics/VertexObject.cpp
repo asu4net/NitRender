@@ -1,12 +1,12 @@
 #include "VertexObject.h"
-#include "Renderer.h"
+#include "Graphics.h"
 #include "Platform/OpenGL/OpenGLVertexObject.h"
 
 namespace Nit
 {
     std::shared_ptr<VertexBuffer> VertexBuffer::Create(const void* vertices, uint32_t size)
     {
-        switch (Renderer::GetGraphicsAPI())
+        switch (GetGraphicsAPI())
         {
         case GraphicsAPI::OpenGL:
             return std::make_shared<OpenGLVertexBuffer>(vertices, size);
@@ -24,7 +24,7 @@ namespace Nit
 
     std::shared_ptr<IndexBuffer> IndexBuffer::Create(const uint32_t* indices, uint32_t count)
     {
-        switch (Renderer::GetGraphicsAPI())
+        switch (GetGraphicsAPI())
         {
         case GraphicsAPI::OpenGL:
             return std::make_shared<OpenGLIndexBuffer>(indices, count);
@@ -37,7 +37,7 @@ namespace Nit
 
     std::shared_ptr<VertexArray> VertexArray::Create()
     {
-        switch (Renderer::GetGraphicsAPI())
+        switch (GetGraphicsAPI())
         {
         case GraphicsAPI::OpenGL:
             return std::make_shared<OpenGLVertexArray>();

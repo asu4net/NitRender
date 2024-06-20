@@ -5,12 +5,11 @@ namespace Nit::Renderer2D
 {
     struct RendererContext
     {
-        RenderAPIPtr API = nullptr;
     };
 
     RendererContext* ctx = nullptr;
 
-    void Init(const Render2DInitArgs args)
+    void InitRender2D(const Render2DInitArgs args)
     {
         if (ctx)
         {
@@ -19,10 +18,9 @@ namespace Nit::Renderer2D
         }
 
         ctx = new RendererContext();
-        ctx->API = RenderAPI::Create();
     }
 
-    void Finish()
+    void FinishRender2D()
     {
         if (ctx)
         {

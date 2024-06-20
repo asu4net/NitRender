@@ -70,7 +70,7 @@ const char* FragmentShaderSource = R"(
 
 int main(int argc, char* argv[])
 {
-    Renderer::Init();
+    Init();
     auto window = Window::Create();
 
 	auto VAO = VertexArray::Create();
@@ -140,7 +140,7 @@ int main(int argc, char* argv[])
     texture->UploadToGPU(image);
     image.Free();
 
-    RenderAPIPtr renderAPI = Renderer::GetRenderAPI();
+    RenderAPIPtr renderAPI = GetRenderAPI();
     renderAPI->SetClearColor({ .2f, .2f, .2f, 1 });
     renderAPI->SetBlendingEnabled(true);
     renderAPI->SetBlendingMode(BlendingMode::Alpha);

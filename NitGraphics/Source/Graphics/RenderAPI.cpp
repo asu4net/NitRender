@@ -1,12 +1,12 @@
 #include "RenderAPI.h"
-#include "Renderer.h"
+#include "Graphics.h"
 #include "Platform/OpenGL/OpenGLRenderAPI.h"
 
 namespace Nit
 {
     RenderAPIPtr RenderAPI::Create()
     {
-        switch (Renderer::GetGraphicsAPI())
+        switch (GetGraphicsAPI())
         {
         case GraphicsAPI::OpenGL:
             return std::make_shared<OpenGLRenderAPI>();

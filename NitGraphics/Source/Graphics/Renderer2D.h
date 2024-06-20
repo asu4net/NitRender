@@ -10,6 +10,6 @@ namespace Nit
 
 namespace Nit::Renderer2D
 {
-    void Init(const Render2DInitArgs args = {});
-    void Finish();
+    void InitRender2D(const Render2DInitArgs args = {});
+    void FinishRender2D();
 }

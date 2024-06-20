@@ -1,5 +1,5 @@
 #include "Texture2D.h"
-#include "Renderer.h"
+#include "Graphics.h"
 #include "Platform/OpenGL/OpenGLTexture2D.h"
 
 #define STB_IMAGE_IMPLEMENTATION
@@ -9,7 +9,7 @@ namespace Nit
 {
     Texture2DPtr Texture2D::Create()
     {
-        switch (Renderer::GetGraphicsAPI())
+        switch (GetGraphicsAPI())
         {
         case GraphicsAPI::OpenGL:
             return std::make_shared<OpenGLTexture2D>();

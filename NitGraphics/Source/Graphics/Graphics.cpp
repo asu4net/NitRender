@@ -1,7 +1,7 @@
-#include "Renderer.h"
+#include "Graphics.h"
 #include "RenderAPI.h"
 
-namespace Nit::Renderer
+namespace Nit
 {
     struct RendererContext
     {
@@ -11,8 +11,8 @@ namespace Nit::Renderer
 
     RendererContext* ctx = nullptr;
     
-    GraphicsAPI GetGraphicsAPI() { assert(ctx); return ctx->graphicsAPI; }
-    RenderAPIPtr GetRenderAPI()  { assert(ctx); return ctx->renderAPI; }
+    GraphicsAPI  GetGraphicsAPI () { assert(ctx); return ctx->graphicsAPI; }
+    RenderAPIPtr GetRenderAPI   () { assert(ctx); return ctx->renderAPI; }
     
     void Init(const RenderInitArgs args)
     {

@@ -2,17 +2,17 @@
 #include "VertexObject.h"
 #include "RenderAPI.h"
 
-namespace Nit::Renderer 
+namespace Nit 
 {
     struct RenderInitArgs
     {
         GraphicsAPI graphicsAPI = GraphicsAPI::OpenGL;
     };
     
-    GraphicsAPI  GetGraphicsAPI();
-    RenderAPIPtr GetRenderAPI();
+    GraphicsAPI  GetGraphicsAPI ();
+    RenderAPIPtr GetRenderAPI   ();
 
-    void Init(const RenderInitArgs args = {});
+    void InitGraphics(const RenderInitArgs args = {});
     
-    void Finish();
+    void FinishGraphics();
 }
