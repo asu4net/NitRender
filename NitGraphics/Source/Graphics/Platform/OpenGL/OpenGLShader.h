@@ -1,5 +1,5 @@
 #pragma once
-#include "Renderer/Shader.h"
+#include "Graphics/Shader.h"
 
 namespace Nit
 {

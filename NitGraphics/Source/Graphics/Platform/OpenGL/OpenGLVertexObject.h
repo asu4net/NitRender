@@ -1,5 +1,5 @@
 #pragma once
-#include "Renderer/VertexObject.h"
+#include "Graphics/VertexObject.h"
 
 namespace Nit
 {

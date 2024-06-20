@@ -1,5 +1,5 @@
 #pragma once
-#include "Renderer/RenderAPI.h"
+#include "Graphics/RenderAPI.h"
 
 namespace Nit
 {

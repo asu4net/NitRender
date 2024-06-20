@@ -1,6 +1,6 @@
 #include "WindowsWindow.h"
 #include <glfw/glfw3.h>
-#include "Renderer/RenderingContext.h"
+#include "Graphics/RenderingContext.h"
 
 namespace Nit
 {

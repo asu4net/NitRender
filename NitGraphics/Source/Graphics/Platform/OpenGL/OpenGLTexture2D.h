@@ -1,5 +1,5 @@
 #pragma once
-#include "Renderer/Texture2D.h"
+#include "Graphics/Texture2D.h"
 
 namespace Nit
 {

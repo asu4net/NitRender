@@ -1,12 +1,12 @@
-project "NitRender"
+project "NitGraphics"
     kind "StaticLib"
     language "C++"
     cppdialect "C++20"
     targetdir (binariesdir)
     objdir (intermediatesdir)
-    pchheader "NitRenderPCH.h"
-    pchsource "Source/NitRenderPCH.cpp"
-    forceincludes { "NitRenderPCH.h" }
+    pchheader "NitGraphicsPCH.h"
+    pchsource "Source/NitGraphicsPCH.cpp"
+    forceincludes { "NitGraphicsPCH.h" }
 
     includedirs 
     { 

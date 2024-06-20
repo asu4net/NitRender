@@ -1,5 +1,5 @@
-#include "NitRender.h"
-#include "Renderer\Material.h"
+#include "NitGraphics.h"
+#include "Graphics/Material.h"
 
 using namespace Nit;
 

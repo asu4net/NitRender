@@ -1,11 +1,11 @@
-workspace "NitRender"
+workspace "NitGraphics"
     architecture "x86_64"
     configurations { "Debug", "Release" }
     startproject "Sandbox"
 
 include "Directories.lua"
 
-include "NitRender/NitRender.lua"
+include "NitGraphics/NitGraphics.lua"
 include "Sandbox/Sandbox.lua"
 
 group "ThirdParty"

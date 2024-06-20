@@ -1,5 +1,5 @@
 #include "OpenGLRenderAPI.h"
-#include "Renderer/VertexObject.h"
+#include "Graphics/VertexObject.h"
 #include <glad/glad.h>
 
 namespace Nit

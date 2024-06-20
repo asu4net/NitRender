@@ -8,13 +8,13 @@ project "Sandbox"
     includedirs 
     { 
         "Source",
-        "%{IncludeDirs.NitRender}",
+        "%{IncludeDirs.NitGraphics}",
         "%{IncludeDirs.glm}"
     }
     
     links
     {
-        "NitRender"
+        "NitGraphics"
     }
 
     files { "**.h", "**.cpp" }
