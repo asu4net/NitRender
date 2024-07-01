@@ -1,6 +1,6 @@
 #pragma once
 
-namespace Nit
+namespace Graphics
 {
     class RenderingContext
     {

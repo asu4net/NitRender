@@ -1,16 +1,16 @@
 #pragma once
 
-namespace Nit
+namespace Graphics
 {
     class VertexArray;
     class RenderAPI;
 
-    using RenderAPIPtr = std::shared_ptr<RenderAPI>;
+    using RenderAPISPtr = std::shared_ptr<RenderAPI>;
 
     class RenderAPI
     {
     public:
-        static RenderAPIPtr Create();
+        static RenderAPISPtr Create();
 
         virtual ~RenderAPI() {};
         virtual void SetViewport(uint32_t x, uint32_t y, uint32_t width, uint32_t height) const = 0;

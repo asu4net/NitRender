@@ -2,9 +2,9 @@
 #include "Graphics.h"
 #include "Platform/OpenGL/OpenGLRenderAPI.h"
 
-namespace Nit
+namespace Graphics
 {
-    RenderAPIPtr RenderAPI::Create()
+    RenderAPISPtr RenderAPI::Create()
     {
         switch (GetGraphicsAPI())
         {

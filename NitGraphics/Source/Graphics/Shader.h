@@ -1,13 +1,12 @@
 #pragma once
 
-namespace Nit
+namespace Graphics
 {
     class Shader;
-    using ShaderPtr     = std::shared_ptr<Shader>;
-    using ShaderWeakPtr = std::weak_ptr<Shader>;
+    using ShaderSPtr    = std::shared_ptr<Shader>;
 
     class Constant;
-    using ConstantUniquePtr = std::unique_ptr<Constant>;
+    using ConstantUPtr = std::unique_ptr<Constant>;
 
     //#TODO_asuarez Sería mejor pre-reservar memoria para todos los uniforms al principio para que esté más alineada y facilitar el acceso.
     // que el uniform se cree a sí mismo
@@ -20,42 +19,42 @@ namespace Nit
     class Constant
     {
     public:
-        static ConstantUniquePtr CreateUnique(const std::string& name, ShaderDataType type, int32_t size);
+        static ConstantUPtr CreateUnique(const std::string& name, ShaderDataType type, int32_t size);
 
         Constant(const std::string& name, ShaderDataType type, int32_t size);
         Constant(Constant&& other) noexcept;
         Constant& operator=(Constant&& other) noexcept;
 
-        int32_t*             GetIntData()   const { return m_IntData;   }
-        float*               GetFloatData() const { return m_FloatData; }
-        const std::string&   GetName()      const { return m_Name;      }
-        ShaderDataType       GetType()      const { return m_Type;      }
-        int32_t              GetSize()      const { return m_Size;      }
+        int32_t*             GetIntData()   const { return m_intData;   }
+        float*               GetFloatData() const { return m_floatData; }
+        const std::string&   GetName()      const { return m_name;      }
+        ShaderDataType       GetType()      const { return m_type;      }
+        int32_t              GetSize()      const { return m_size;      }
 
         ~Constant();
 
     private:
         union
         {
-            void* m_Data = nullptr;
-            int32_t* m_IntData;
-            float* m_FloatData;
+            void*    m_data = nullptr;
+            int32_t* m_intData;
+            float*   m_floatData;
         };
 
-        std::string    m_Name;
-        ShaderDataType m_Type;
-        int32_t        m_Size;
+        std::string    m_name;
+        ShaderDataType m_type;
+        int32_t        m_size;
     };
 
 
     class Shader
     {
     public:
-        static ShaderPtr Create();
+        static ShaderSPtr Create();
 
         virtual void Compile(const char* vertexSource, const char* fragmentSource) = 0;
         
-        virtual void GetConstantCollection(std::vector<ConstantUniquePtr>& constants) const = 0;
+        virtual void GetConstantCollection(std::vector<ConstantUPtr>& constants) const = 0;
         
         virtual void SetConstantFloat     (const char* name, float value)                        const = 0;
         virtual void SetConstantVec2      (const char* name, const float* value)                 const = 0;

@@ -1,6 +1,6 @@
 #pragma once
 
-namespace Nit
+namespace Graphics
 {
     struct Texture2DSettings
     {
@@ -10,17 +10,17 @@ namespace Nit
         TextureWrapMode     WrapModeV = TextureWrapMode::Repeat;
     };
 
-    using Texture2DPtr = std::shared_ptr<class Texture2D>;
+    using Texture2DSPtr = std::shared_ptr<class Texture2D>;
     class Image;
 
     class Texture2D
     {
     public:
-        static Texture2DPtr  Create();
-        virtual void         UploadToGPU(const void*  data, uint32_t Width, uint32_t Height, uint32_t Channels, const Texture2DSettings& settings = {}) = 0;
-        virtual void         UploadToGPU(const Image& image, const Texture2DSettings& settings = {}) = 0;
-        virtual uint32_t     GetTextureID() const = 0;
-        virtual void         Bind(uint32_t slot = 0) const = 0;
+        static Texture2DSPtr  Create();
+        virtual void          UploadToGPU(const void*  data, uint32_t Width, uint32_t Height, uint32_t Channels, const Texture2DSettings& settings = {}) = 0;
+        virtual void          UploadToGPU(const Image& image, const Texture2DSettings& settings = {}) = 0;
+        virtual uint32_t      GetTextureID() const = 0;
+        virtual void          Bind(uint32_t slot = 0) const = 0;
     };
 
     class Image

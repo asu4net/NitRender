@@ -1,8 +1,6 @@
 #include "NitGraphics.h"
 #include "Graphics/Material.h"
 
-using namespace Nit;
-
 struct QuadVertex 
 {
 	glm::vec4 Position;
@@ -70,16 +68,15 @@ const char* FragmentShaderSource = R"(
 
 int main(int argc, char* argv[])
 {
-    Init();
-    auto window = Window::Create();
+    Graphics::InitGraphics();
 
-	auto VAO = VertexArray::Create();
-	auto VBO = VertexBuffer::Create(sizeof(QuadVertex) * 4);
+	auto VAO = Graphics::VertexArray::Create();
+	auto VBO = Graphics::VertexBuffer::Create(sizeof(QuadVertex) * 4);
 	
 	VBO->SetLayout({
-		{ ShaderDataType::Float4, "a_Position"},
-		{ ShaderDataType::Float2, "a_UVCoords"},
-		{ ShaderDataType::Int,    "a_TextureSlot"}
+		{ Graphics::ShaderDataType::Float4, "a_Position"},
+		{ Graphics::ShaderDataType::Float2, "a_UVCoords"},
+		{ Graphics::ShaderDataType::Int,    "a_TextureSlot"}
 	});
 
     VAO->AddVertexBuffer(VBO);
@@ -104,7 +101,7 @@ int main(int argc, char* argv[])
         offset += 4;
     }
 
-    auto IBO = IndexBuffer::Create(indices, maxIndices);
+    auto IBO = Graphics::IndexBuffer::Create(indices, maxIndices);
     delete[] indices;
 
     VAO->SetIndexBuffer(IBO);
@@ -132,28 +129,27 @@ int main(int argc, char* argv[])
         textureSlots[i] = i;
     }
 
-    auto shader = Shader::Create();
+    auto shader = Graphics::Shader::Create();
     shader->Compile(VertexShaderSource, FragmentShaderSource);
     
-    auto texture = Texture2D::Create();
-    Image image("Assets/Cpp.png");
+    auto texture = Graphics::Texture2D::Create();
+    Graphics::Image image("Assets/Cpp.png");
     texture->UploadToGPU(image);
     image.Free();
 
-    RenderAPIPtr renderAPI = GetRenderAPI();
-    renderAPI->SetClearColor({ .2f, .2f, .2f, 1 });
-    renderAPI->SetBlendingEnabled(true);
-    renderAPI->SetBlendingMode(BlendingMode::Alpha);
-    renderAPI->SetDepthTestEnabled(true);
+    Graphics::SetClearColor({ .2f, .2f, .2f, 1 });
+    Graphics::SetBlendingEnabled(true);
+    Graphics::SetBlendingMode(Graphics::BlendingMode::Alpha);
+    Graphics::SetDepthTestEnabled(true);
 
     Transform cameraTransform({0.f, 0.f, 5});
     Transform spriteTransform;
 
     float fov = 65;
 
-    auto getAspect = [&window]() {
+    auto getAspect = []() {
         int w, h;
-        window->GetSize(&w, &h);
+        Graphics::GetWindow().GetSize(&w, &h);
         const float aspect = static_cast<float>(w) / static_cast<float>(h);
         return aspect;
     };
@@ -161,15 +157,16 @@ int main(int argc, char* argv[])
     float nearClip = 0.1f;
     float farClip  = 1000.f;
 
-    Material material(shader);
-    material.SetConstantVec4("u_TintColor", { 1, 0, 0, 1 });
-    material.SetConstantSampler2D("u_TextureSlots[", &textureSlots.front(), MaxTextureSlots);
-
-	while (window->IsOpened())
+    Graphics::Material material(shader);
+    material.SetConstantVec4("u_TintColor", { 1, 1, 1, 1 });
+    material.SetConstantSampler2D("u_TextureSlots[0]", &textureSlots.front(), MaxTextureSlots);
+    
+	while (Graphics::IsWindowOpened())
 	{
-        renderAPI->Clear();
+        Graphics::ClearScreen();
 
         cameraTransform.Position.z -= 0.01f;
+        cameraTransform.Position.x -= 0.005f;
 
         glm::mat4 proj = glm::perspective(glm::radians(fov), getAspect(), nearClip, farClip);
         glm::mat4 view = glm::inverse(cameraTransform.GetMatrix());
@@ -184,7 +181,9 @@ int main(int argc, char* argv[])
         VBO->SetData(quad, sizeof(QuadVertex) * 4);
         material.SubmitConstants();
         texture->Bind(0);
-        renderAPI->DrawElements(VAO, IBO->GetCount());
-		window->Update();
+        Graphics::DrawElements(VAO, IBO->GetCount());
+		Graphics::UpdateWindow();
 	}
+
+    Graphics::FinishGraphics();
 }

@@ -1,6 +1,6 @@
 #pragma once
 
-namespace Nit
+namespace Graphics
 {
     struct BufferElement
     {
@@ -80,6 +80,8 @@ namespace Nit
         std::vector<BufferElement> m_Elements;
     };
 
+    using VertexBufferSPtr = std::shared_ptr<class VertexBuffer>;
+
     class VertexBuffer
     {
     public:
@@ -96,6 +98,8 @@ namespace Nit
         virtual const BufferLayout& GetLayout() const = 0;
     };
 
+    using IndexBufferSPtr = std::shared_ptr<class IndexBuffer>;
+
     class IndexBuffer
     {
     public:
@@ -109,10 +113,12 @@ namespace Nit
         virtual uint32_t GetCount() const = 0;
     };
 
+    using VertexArraySPtr = std::shared_ptr<class VertexArray>;
+
     class VertexArray
     {
     public:
-        static std::shared_ptr<VertexArray> Create();
+        static VertexArraySPtr Create();
 
         virtual ~VertexArray() {};
 

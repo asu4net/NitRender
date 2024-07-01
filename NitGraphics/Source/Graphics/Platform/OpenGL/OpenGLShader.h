@@ -1,7 +1,7 @@
 #pragma once
 #include "Graphics/Shader.h"
 
-namespace Nit
+namespace Graphics
 {
     class OpenGLShader : public Shader
     {
@@ -11,7 +11,7 @@ namespace Nit
 
         void Compile(const char* vertexSource, const char* fragmentSource) override;
 
-        void GetConstantCollection(std::vector<ConstantUniquePtr>& constants) const override;
+        void GetConstantCollection(std::vector<ConstantUPtr>& constants) const override;
 
         void SetConstantFloat     (const char* name, float value)                        const override;
         void SetConstantVec2      (const char* name, const float* value)                 const override;
@@ -24,10 +24,8 @@ namespace Nit
         void Bind()   const override;
         void Unbind() const override;
 
-    private:
-        
-        ShaderPtr m_SharedPtr = nullptr;
-        uint32_t  m_ShaderId  = 0;
-        bool      m_Compiled  = false;
+    private:        
+        uint32_t   m_shaderId  = 0;
+        bool       m_bCompiled  = false;
     };
 }

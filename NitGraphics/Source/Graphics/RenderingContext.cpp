@@ -2,7 +2,7 @@
 #include "Graphics.h"
 #include "Platform/OpenGL/OpenGLRenderingContext.h"
 
-namespace Nit
+namespace Graphics
 {
     std::unique_ptr<RenderingContext> RenderingContext::Create(void* windowHandler)
     {

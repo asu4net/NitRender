@@ -2,7 +2,7 @@
 #include <glad/glad.h>
 #include <glfw/glfw3.h>
 
-namespace Nit
+namespace Graphics
 {
     void APIENTRY OnDebugMessageCallback(GLenum source, GLenum type, unsigned int id, GLenum severity,
         GLsizei length, const char* message, const void* userParam)
@@ -12,7 +12,7 @@ namespace Nit
     }
 
     OpenGLRenderingContext::OpenGLRenderingContext(void* windowHandler)
-        : m_WindowHandler(static_cast<GLFWwindow*>(windowHandler))
+        : m_windowHandler(static_cast<GLFWwindow*>(windowHandler))
     {
         if (!gladLoadGLLoader(reinterpret_cast<GLADloadproc>(glfwGetProcAddress)))
         {
@@ -27,6 +27,6 @@ namespace Nit
 
     void OpenGLRenderingContext::SwapBuffers() const
     {
-        glfwSwapBuffers(m_WindowHandler);
+        glfwSwapBuffers(m_windowHandler);
     }
 }

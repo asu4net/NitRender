@@ -1,7 +1,7 @@
 #pragma once
 #include "Graphics/VertexObject.h"
 
-namespace Nit
+namespace Graphics
 {
     class OpenGLVertexBuffer : public VertexBuffer
     {
@@ -15,11 +15,11 @@ namespace Nit
         void SetData(const void* data, uint32_t size) const override;
 
         void SetLayout(const BufferLayout& bufferLayout) override;
-        const BufferLayout& GetLayout() const override { return m_Layout; }
+        const BufferLayout& GetLayout() const override { return m_layout; }
 
     private:
-        uint32_t m_BufferId{};
-        BufferLayout m_Layout;
+        uint32_t m_bufferId{};
+        BufferLayout m_layout;
     };
 
     class OpenGLIndexBuffer : public IndexBuffer
@@ -31,11 +31,11 @@ namespace Nit
         void Bind() const override;
         void Unbind() const override;
 
-        uint32_t GetCount() const override { return m_Count; }
+        uint32_t GetCount() const override { return m_count; }
 
     private:
-        uint32_t m_BufferId;
-        uint32_t m_Count;
+        uint32_t m_bufferId;
+        uint32_t m_count;
     };
 
     class OpenGLVertexArray : public VertexArray

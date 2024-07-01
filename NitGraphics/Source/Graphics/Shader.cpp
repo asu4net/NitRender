@@ -2,54 +2,54 @@
 #include "Graphics.h"
 #include "Platform/OpenGL/OpenGLShader.h"
 
-namespace Nit
+namespace Graphics
 {
-    ConstantUniquePtr Constant::CreateUnique(const std::string& name, ShaderDataType type, int32_t size)
+    ConstantUPtr Constant::CreateUnique(const std::string& name, ShaderDataType type, int32_t size)
     {
         return std::make_unique<Constant>(name, type, size);
     }
 
     Constant::Constant(const std::string& name, ShaderDataType type, int32_t size)
-        : m_Data(CreateFromDataType(type))
-        , m_Name(name)
-        , m_Type(type)
-        , m_Size(size)
+        : m_data(CreateFromDataType(type))
+        , m_name(name)
+        , m_type(type)
+        , m_size(size)
     {
-        if (!m_Data)
+        if (!m_data)
         {
             return;
         }
-        memset(m_Data, 0, ShaderDataTypeToSize(type));
+        memset(m_data, 0, ShaderDataTypeToSize(type));
     }
 
     Constant::Constant(Constant&& other) noexcept
-        : m_Data(other.m_Data)
-        , m_Name(other.m_Name)
-        , m_Type(other.m_Type)
-        , m_Size(other.m_Size)
+        : m_data(other.m_data)
+        , m_name(other.m_name)
+        , m_type(other.m_type)
+        , m_size(other.m_size)
     {
-        other.m_Data = nullptr;
+        other.m_data = nullptr;
     }
 
     Constant& Constant::operator=(Constant&& other) noexcept
     {
-        m_Data = other.m_Data;
-        m_Name = other.m_Name;
-        m_Type = other.m_Type;
-        m_Size = other.m_Size;
-        other.m_Data = nullptr;
+        m_data = other.m_data;
+        m_name = other.m_name;
+        m_type = other.m_type;
+        m_size = other.m_size;
+        other.m_data = nullptr;
         return *this;
     }
 
     Constant::~Constant()
     {
-        if (m_Data)
+        if (m_data)
         {
-            delete[] m_Data;
+            delete[] m_data;
         }
     }
 
-    ShaderPtr Shader::Create()
+    ShaderSPtr Shader::Create()
     {
         switch (GetGraphicsAPI())
         {

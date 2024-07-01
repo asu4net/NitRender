@@ -17,7 +17,48 @@
 #define GLM_ENABLE_EXPERIMENTAL
 #include <glm/gtx/quaternion.hpp>
 
-namespace Nit
+// GLM extra constants
+namespace glm
+{ 
+    inline constexpr glm::mat4 m4_identity(1.f);
+    
+    inline constexpr glm::vec4 v4_zero        (  0.f,  0.f,    0.f,    0.f );
+    inline constexpr glm::vec4 v4_one         (  1.f,  1.f,    1.f,    1.f );
+
+    inline constexpr glm::vec4 v4_black       (  0.f,  0.f,    0.f,    1.f );
+    inline constexpr glm::vec4 v4_blue        (  0.f,  0.f,    1.f,    1.f );
+    inline constexpr glm::vec4 v4_light_blue  (  .3f,  .3f,    1.f,    1.f );
+    inline constexpr glm::vec4 v4_cyan        (  0.f,  1.f,    1.f,    1.f );
+    inline constexpr glm::vec4 v4_gray        (  .5f,  .5f,    .5f,    1.f );
+    inline constexpr glm::vec4 v4_dark_gray   (  .2f,  .2f,    .2f,    1.f );
+    inline constexpr glm::vec4 v4_green       (  0.f,  1.f,    0.f,    1.f );
+    inline constexpr glm::vec4 v4_light_green (  .3f,  1.f,    .3f,    1.f );
+    inline constexpr glm::vec4 v4_grey        (  .5f,  .5f,    .5f,    1.f );
+    inline constexpr glm::vec4 v4_dark_grey   (  .2f,  .2f,    .2f,    1.f );
+    inline constexpr glm::vec4 v4_magenta     (  1.f,  0.f,    1.f,    1.f );
+    inline constexpr glm::vec4 v4_red         (  1.f,  0.f,    0.f,    1.f );
+    inline constexpr glm::vec4 v4_light_red   (  1.f,  .3f,    .3f,    1.f );
+    inline constexpr glm::vec4 v4_white       (  1.f,  1.f,    1.f,    1.f );
+    inline constexpr glm::vec4 v4_white_faded (  1.f,  1.f,    1.f,    0.f );
+    inline constexpr glm::vec4 v4_yellow      (  1.f, .92f,  .016f,    1.f );
+    inline constexpr glm::vec4 v4_orange      ( .97f, .60f,   .11f,    1.f );
+
+    inline constexpr glm::vec2 v2_zero  ( 0,  0 );
+    inline constexpr glm::vec2 v2_one   ( 1,  1 );
+    inline constexpr glm::vec2 v2_right ( 1,  0 );
+    inline constexpr glm::vec2 v2_left  (-1,  0 );
+    inline constexpr glm::vec2 v2_up    ( 0,  1 );
+    inline constexpr glm::vec2 v2_down  ( 0, -1 );
+
+    inline constexpr glm::vec3 v3_zero  ( 0,  0,  0 );
+    inline constexpr glm::vec3 v3_one   ( 1,  1,  1 );
+    inline constexpr glm::vec3 v3_right ( 1,  0,  0 );
+    inline constexpr glm::vec3 v3_left  (-1,  0,  0 );
+    inline constexpr glm::vec3 v3_up    ( 0,  1,  0 );
+    inline constexpr glm::vec3 v3_down  ( 0, -1,  0 );
+}
+
+namespace Graphics
 {
     enum class BlendingMode
     {

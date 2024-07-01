@@ -2,7 +2,7 @@
 #include "Graphics/VertexObject.h"
 #include <glad/glad.h>
 
-namespace Nit
+namespace Graphics
 {
     void OpenGLRenderAPI::SetViewport(const uint32_t x, const uint32_t y, const uint32_t width, const uint32_t height) const
     {

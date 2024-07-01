@@ -5,9 +5,9 @@
 #define STB_IMAGE_IMPLEMENTATION
 #include <stb/stb_image.h>
 
-namespace Nit
+namespace Graphics
 {
-    Texture2DPtr Texture2D::Create()
+    Texture2DSPtr Texture2D::Create()
     {
         switch (GetGraphicsAPI())
         {

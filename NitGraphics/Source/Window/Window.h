@@ -1,24 +1,26 @@
 #pragma once
 
-namespace Nit
+namespace Graphics
 {
     enum class CursorMode { Normal, Disabled, Hidden, Captured };
 
     struct WindowInitArgs
     {
-        std::string Title           = "Nit Window";
-        int         Width           = 1280; 
-        int         Height          = 720;
+        std::string title           = "Nit Window";
+        int         width           = 1280; 
+        int         height          = 720;
         GraphicsAPI API             = GraphicsAPI::OpenGL;
-        bool        VSync           = true;
+        bool        vSync           = true;
         bool        bStartMaximized = false;
-        CursorMode  StartCursorMode  = CursorMode::Normal;
+        CursorMode  cursorMode  = CursorMode::Normal;
     };
+
+    using WindowUPtr = std::unique_ptr<class Window>;
 
     class Window
     {
     public:
-        static std::unique_ptr<Window> Create(const WindowInitArgs& initArgs = {});
+        static WindowUPtr Create(const WindowInitArgs& initArgs = {});
 
         virtual ~Window() = default;
 

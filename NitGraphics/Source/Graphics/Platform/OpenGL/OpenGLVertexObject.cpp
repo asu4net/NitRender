@@ -3,31 +3,31 @@
 #include <stdint.h>
 #include <cassert>
 
-namespace Nit
+namespace Graphics
 {
     OpenGLVertexBuffer::OpenGLVertexBuffer(const void* vertices, const uint32_t size)
-        : m_BufferId(0)
+        : m_bufferId(0)
     {
-        glCreateBuffers(1, &m_BufferId);
-        glBindBuffer(GL_ARRAY_BUFFER, m_BufferId);
+        glCreateBuffers(1, &m_bufferId);
+        glBindBuffer(GL_ARRAY_BUFFER, m_bufferId);
         glBufferData(GL_ARRAY_BUFFER, size, vertices, GL_STATIC_DRAW);
     }
 
     OpenGLVertexBuffer::OpenGLVertexBuffer(const uint32_t size)
     {
-        glCreateBuffers(1, &m_BufferId);
-        glBindBuffer(GL_ARRAY_BUFFER, m_BufferId);
+        glCreateBuffers(1, &m_bufferId);
+        glBindBuffer(GL_ARRAY_BUFFER, m_bufferId);
         glBufferData(GL_ARRAY_BUFFER, size, nullptr, GL_DYNAMIC_DRAW);
     }
 
     OpenGLVertexBuffer::~OpenGLVertexBuffer()
     {
-        glDeleteBuffers(1, &m_BufferId);
+        glDeleteBuffers(1, &m_bufferId);
     }
 
     void OpenGLVertexBuffer::Bind() const
     {
-        glBindBuffer(GL_ARRAY_BUFFER, m_BufferId);
+        glBindBuffer(GL_ARRAY_BUFFER, m_bufferId);
     }
 
     void OpenGLVertexBuffer::Unbind() const
@@ -37,32 +37,32 @@ namespace Nit
 
     void OpenGLVertexBuffer::SetData(const void* data, const uint32_t size) const
     {
-        glBindBuffer(GL_ARRAY_BUFFER, m_BufferId);
+        glBindBuffer(GL_ARRAY_BUFFER, m_bufferId);
         glBufferSubData(GL_ARRAY_BUFFER, 0, size, data);
     }
 
     void OpenGLVertexBuffer::SetLayout(const BufferLayout& bufferLayout)
     {
-        m_Layout = bufferLayout;
+        m_layout = bufferLayout;
     }
 
     OpenGLIndexBuffer::OpenGLIndexBuffer(const uint32_t* indices, const uint32_t count)
-        : m_BufferId(0)
-        , m_Count(count)
+        : m_bufferId(0)
+        , m_count(count)
     {
-        glCreateBuffers(1, &m_BufferId);
+        glCreateBuffers(1, &m_bufferId);
         Bind();
         glBufferData(GL_ELEMENT_ARRAY_BUFFER, count * sizeof(uint32_t), indices, GL_STATIC_DRAW);
     }
 
     OpenGLIndexBuffer::~OpenGLIndexBuffer()
     {
-        glDeleteBuffers(1, &m_BufferId);
+        glDeleteBuffers(1, &m_bufferId);
     }
 
     void OpenGLIndexBuffer::Bind() const
     {
-        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_BufferId);
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_bufferId);
     }
 
     void OpenGLIndexBuffer::Unbind() const

@@ -1,21 +1,21 @@
 #include "OpenGLShader.h"
 #include <glad/glad.h>
 
-namespace Nit
+namespace Graphics
 {
     OpenGLShader::OpenGLShader() = default;
 
     OpenGLShader::~OpenGLShader()
     {
-        glDeleteProgram(m_ShaderId);
+        glDeleteProgram(m_shaderId);
     }
 
     void OpenGLShader::Compile(const char* vertexSource, const char* fragmentSource)
     {
-        if (m_Compiled)
+        if (m_bCompiled)
         {
-            glDeleteProgram(m_ShaderId);
-            m_Compiled = false;
+            glDeleteProgram(m_shaderId);
+            m_bCompiled = false;
         }
 
         // Create an empty vertex shader handle
@@ -80,30 +80,30 @@ namespace Nit
         // Vertex and fragment shaders are successfully compiled.
         // Now time to link them together into a program.
         // Get a program object.
-        m_ShaderId = glCreateProgram();
+        m_shaderId = glCreateProgram();
 
         // Attach our shaders to our program
-        glAttachShader(m_ShaderId, vertexShader);
-        glAttachShader(m_ShaderId, fragmentShader);
+        glAttachShader(m_shaderId, vertexShader);
+        glAttachShader(m_shaderId, fragmentShader);
 
         // Link our program
-        glLinkProgram(m_ShaderId);
+        glLinkProgram(m_shaderId);
 
         // Note the different functions here: glGetProgram* instead of glGetShader*.
         GLint isLinked = 0;
-        glGetProgramiv(m_ShaderId, GL_LINK_STATUS, (int*)&isLinked);
+        glGetProgramiv(m_shaderId, GL_LINK_STATUS, (int*)&isLinked);
         if (isLinked == GL_FALSE)
         {
             GLint maxLength = 0;
-            glGetProgramiv(m_ShaderId, GL_INFO_LOG_LENGTH, &maxLength);
+            glGetProgramiv(m_shaderId, GL_INFO_LOG_LENGTH, &maxLength);
 
             // The maxLength includes the NULL character
             std::vector<GLchar> infoLog(maxLength);
-            glGetProgramInfoLog(m_ShaderId, maxLength, &maxLength, infoLog.data());
+            glGetProgramInfoLog(m_shaderId, maxLength, &maxLength, infoLog.data());
             std::cout << "Error linking the shaders: " << infoLog.data() << "\n";
 
             // We don't need the program anymore.
-            glDeleteProgram(m_ShaderId);
+            glDeleteProgram(m_shaderId);
             // Don't leak shaders either.
             glDeleteShader(vertexShader);
             glDeleteShader(fragmentShader);
@@ -112,10 +112,10 @@ namespace Nit
         }
 
         // Always detach shaders after a successful link.
-        glDetachShader(m_ShaderId, vertexShader);
-        glDetachShader(m_ShaderId, fragmentShader);
+        glDetachShader(m_shaderId, vertexShader);
+        glDetachShader(m_shaderId, fragmentShader);
 
-        m_Compiled = true;
+        m_bCompiled = true;
     }
 
     static ShaderDataType ShaderDataTypeFromOpenGL(int32_t type)
@@ -138,19 +138,19 @@ namespace Nit
         }
     }
 
-    void OpenGLShader::GetConstantCollection(std::vector<ConstantUniquePtr>& constants) const
+    void OpenGLShader::GetConstantCollection(std::vector<ConstantUPtr>& constants) const
     {
         int32_t uniformCount;
-        glGetProgramiv(m_ShaderId, GL_ACTIVE_UNIFORMS, &uniformCount);
+        glGetProgramiv(m_shaderId, GL_ACTIVE_UNIFORMS, &uniformCount);
 
         for (int32_t i = 0; i < uniformCount; ++i)
         {
-            constexpr int32_t bufSize = 16;
+            constexpr int32_t bufSize = 32;
             char name[bufSize];
             uint32_t type;
             int32_t lenght;
             int32_t size;
-            glGetActiveUniform(m_ShaderId, i, bufSize, &lenght, &size, &type, name);
+            glGetActiveUniform(m_shaderId, i, bufSize, &lenght, &size, &type, name);
             auto constant = Constant::CreateUnique(name, ShaderDataTypeFromOpenGL(type), size);
             if (!constant) { continue; }
             constants.push_back(std::move(constant));
@@ -159,49 +159,49 @@ namespace Nit
 
     void OpenGLShader::SetConstantFloat(const char* name, float value) const
     {
-        const uint32_t location = glGetUniformLocation(m_ShaderId, name);
+        const uint32_t location = glGetUniformLocation(m_shaderId, name);
         glUniform1f(location, value);
     }
 
     void OpenGLShader::SetConstantVec2(const char* name, const float* value) const
     {
-        const uint32_t location = glGetUniformLocation(m_ShaderId, name);
+        const uint32_t location = glGetUniformLocation(m_shaderId, name);
         glUniform2fv(location, 1, value);
     }
 
     void OpenGLShader::SetConstantVec3(const char* name, const float* value) const
     {
-        const uint32_t location = glGetUniformLocation(m_ShaderId, name);
+        const uint32_t location = glGetUniformLocation(m_shaderId, name);
         glUniform3fv(location, 1, value);
     }
 
     void OpenGLShader::SetConstantMat4(const char* name, const float* value) const
     {
-        const uint32_t location = glGetUniformLocation(m_ShaderId, name);
+        const uint32_t location = glGetUniformLocation(m_shaderId, name);
         glUniformMatrix4fv(location, 1, false, value);
     }
 
     void OpenGLShader::SetConstantVec4(const char* name, const float* value) const
     {
-        const uint32_t location = glGetUniformLocation(m_ShaderId, name);
+        const uint32_t location = glGetUniformLocation(m_shaderId, name);
         glUniform4fv(location, 1, value);
     }
 
     void OpenGLShader::SetConstantInt(const char* name, int value) const
     {
-        const uint32_t location = glGetUniformLocation(m_ShaderId, name);
+        const uint32_t location = glGetUniformLocation(m_shaderId, name);
         glUniform1i(location, value);
     }
 
     void OpenGLShader::SetConstantSampler2D(const char* name, const int32_t* value, int32_t size) const
     {
-        const int location = glGetUniformLocation(m_ShaderId, name);
+        const int location = glGetUniformLocation(m_shaderId, name);
         glUniform1iv(location, size, value);
     }
 
     void OpenGLShader::Bind() const
     {
-        glUseProgram(m_ShaderId);
+        glUseProgram(m_shaderId);
     }
 
     void OpenGLShader::Unbind() const

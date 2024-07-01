@@ -1,7 +1,7 @@
 #pragma once
 #include "Graphics/RenderAPI.h"
 
-namespace Nit
+namespace Graphics
 {
     class VertexArray;
 

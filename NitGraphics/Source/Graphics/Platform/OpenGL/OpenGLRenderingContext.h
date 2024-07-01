@@ -3,7 +3,7 @@
 
 struct GLFWwindow;
 
-namespace Nit
+namespace Graphics
 {
     class OpenGLRenderingContext : public RenderingContext
     {
@@ -18,6 +18,6 @@ namespace Nit
         void SwapBuffers() const override;
 
     private:
-        GLFWwindow* m_WindowHandler;
+        GLFWwindow* m_windowHandler;
     };
 }

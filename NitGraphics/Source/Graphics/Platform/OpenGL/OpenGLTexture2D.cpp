@@ -1,7 +1,7 @@
 #include "OpenGLTexture2D.h"
 #include <GLAD/glad.h>
 
-namespace Nit
+namespace Graphics
 {
     void SetMagFilter(const uint32_t textureId, const MagnificationFilter magFilter)
     {
@@ -42,7 +42,7 @@ namespace Nit
 
     OpenGLTexture2D::~OpenGLTexture2D()
     {
-        glDeleteTextures(1, &m_TextureID);
+        glDeleteTextures(1, &m_textureID);
     }
 
     void OpenGLTexture2D::UploadToGPU(const void* data, uint32_t Width, uint32_t Height, uint32_t Channels, const Texture2DSettings& settings)
@@ -50,10 +50,10 @@ namespace Nit
         assert(data && "Missing texture data!");
         assert(Width && Height && "Invalid width or height!");
 
-        if (m_Uploaded)
+        if (m_uploaded)
         {
-            glDeleteTextures(1, &m_TextureID);
-            m_Uploaded = false;
+            glDeleteTextures(1, &m_textureID);
+            m_uploaded = false;
         }
 
         GLenum internalFormat = 0, dataFormat = 0;
@@ -69,19 +69,19 @@ namespace Nit
             dataFormat = GL_RGB;
         }
 
-        glCreateTextures(GL_TEXTURE_2D, 1, &m_TextureID);
-        glTextureStorage2D(m_TextureID, 1, internalFormat, Width, Height);
+        glCreateTextures(GL_TEXTURE_2D, 1, &m_textureID);
+        glTextureStorage2D(m_textureID, 1, internalFormat, Width, Height);
 
-        SetMinFilter(m_TextureID, settings.MinFilter);
-        SetMagFilter(m_TextureID, settings.MagFilter);
+        SetMinFilter(m_textureID, settings.MinFilter);
+        SetMagFilter(m_textureID, settings.MagFilter);
 
-        SetWrapMode(m_TextureID, TextureCoordinate::U, settings.WrapModeU);
-        SetWrapMode(m_TextureID, TextureCoordinate::V, settings.WrapModeV);
+        SetWrapMode(m_textureID, TextureCoordinate::U, settings.WrapModeU);
+        SetWrapMode(m_textureID, TextureCoordinate::V, settings.WrapModeV);
 
-        glTextureSubImage2D(m_TextureID, 0, 0, 0, Width, Height,
+        glTextureSubImage2D(m_textureID, 0, 0, 0, Width, Height,
             dataFormat, GL_UNSIGNED_BYTE, data);
 
-        m_Uploaded = true;
+        m_uploaded = true;
     }
 
     void OpenGLTexture2D::UploadToGPU(const Image& image, const Texture2DSettings& settings)
@@ -98,6 +98,6 @@ namespace Nit
 
     void OpenGLTexture2D::Bind(const uint32_t slot) const
     {
-        glBindTextureUnit(slot, m_TextureID);
+        glBindTextureUnit(slot, m_textureID);
     }
 }

@@ -2,7 +2,7 @@
 #include <glfw/glfw3.h>
 #include "Graphics/RenderingContext.h"
 
-namespace Nit
+namespace Graphics
 {
     WindowsWindow::WindowsWindow(const WindowInitArgs& initArgs)
     {
@@ -11,25 +11,25 @@ namespace Nit
 
         if (!bInited) return;
 
-        m_WindowHandler = glfwCreateWindow(initArgs.Width, initArgs.Height, initArgs.Title.c_str(), nullptr, nullptr);
+        m_windowHandler = glfwCreateWindow(initArgs.width, initArgs.height, initArgs.title.c_str(), nullptr, nullptr);
 
-        assert(m_WindowHandler && "GLFW Window creation failed!");
+        assert(m_windowHandler && "GLFW Window creation failed!");
 
-        glfwMakeContextCurrent(m_WindowHandler);
+        glfwMakeContextCurrent(m_windowHandler);
 
-        m_RenderingContext = RenderingContext::Create(m_WindowHandler);
+        m_RenderingContext = RenderingContext::Create(m_windowHandler);
 
-        m_IsOpened = true;
+        m_bIsOpened = true;
 
-        SetVSync(initArgs.VSync);
-        SetTitle(initArgs.Title);
-        SetCursorMode(initArgs.StartCursorMode);
+        SetVSync(initArgs.vSync);
+        SetTitle(initArgs.title);
+        SetCursorMode(initArgs.cursorMode);
         //SetWindowCallbacks();
 
         if (initArgs.bStartMaximized)
         {
-            glfwSetWindowAttrib(m_WindowHandler, GLFW_MAXIMIZED, GLFW_TRUE);
-            glfwMaximizeWindow(m_WindowHandler);
+            glfwSetWindowAttrib(m_windowHandler, GLFW_MAXIMIZED, GLFW_TRUE);
+            glfwMaximizeWindow(m_windowHandler);
         }
     }
 
@@ -38,61 +38,61 @@ namespace Nit
         if (IsOpened())
             Close();
 
-        assert(m_WindowHandler && "GLFW Window handler empty!");
-        glfwDestroyWindow(m_WindowHandler);
-        m_WindowHandler = nullptr;
+        assert(m_windowHandler && "GLFW Window handler empty!");
+        glfwDestroyWindow(m_windowHandler);
+        m_windowHandler = nullptr;
         glfwTerminate();
     }
 
     //TODO: Finish
     void WindowsWindow::SetTitle(const std::string& title)
     {
-        m_Title = title;
-        glfwSetWindowTitle(m_WindowHandler, title.c_str());
+        m_title = title;
+        glfwSetWindowTitle(m_windowHandler, title.c_str());
     }
 
     void WindowsWindow::GetSize(int* width, int* height) const
     {
-        glfwGetWindowSize(m_WindowHandler, width, height);
+        glfwGetWindowSize(m_windowHandler, width, height);
     }
 
     //TODO: Finish
     void WindowsWindow::SetVSync(bool enabled)
     {
         glfwSwapInterval(enabled ? 1 : 0);
-        m_VSync = enabled;
+        m_vSync = enabled;
     }
 
     //TODO: Finish
     void WindowsWindow::SetCursorMode(const CursorMode mode)
     {
-        m_CursorMode = mode;
+        m_cursorMode = mode;
 
-        switch (m_CursorMode)
+        switch (m_cursorMode)
         {
         case CursorMode::Normal:
-            glfwSetInputMode(m_WindowHandler, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+            glfwSetInputMode(m_windowHandler, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
             return;
         case CursorMode::Disabled:
-            glfwSetInputMode(m_WindowHandler, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+            glfwSetInputMode(m_windowHandler, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
             return;
         case CursorMode::Hidden:
-            glfwSetInputMode(m_WindowHandler, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
+            glfwSetInputMode(m_windowHandler, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
             return;
         case CursorMode::Captured:
-            glfwSetInputMode(m_WindowHandler, GLFW_CURSOR, GLFW_CURSOR_CAPTURED);
+            glfwSetInputMode(m_windowHandler, GLFW_CURSOR, GLFW_CURSOR_CAPTURED);
         }
     }
 
     bool WindowsWindow::IsOpened() const
     {
-        return m_IsOpened && !glfwWindowShouldClose(m_WindowHandler);
+        return m_bIsOpened && !glfwWindowShouldClose(m_windowHandler);
     }
 
     void WindowsWindow::Close()
     {
-        assert(m_IsOpened && "Window is already closed!");
-        m_IsOpened = false;
+        assert(m_bIsOpened && "Window is already closed!");
+        m_bIsOpened = false;
     }
 
     void WindowsWindow::Update()
