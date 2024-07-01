@@ -48,11 +48,11 @@ namespace Graphics
         GetRenderAPI()->SetDepthTestEnabled(bEnabled);
     }
 
-    void CreateGraphicsContext(const GraphicsCfg args)
+    void CreateGraphicsContext(const GraphicsCfg cfg)
     {
         assert(!g_context);
         g_context = new GraphicsContext();
-        g_context->graphicsAPI = args.graphicsAPI;
+        g_context->graphicsAPI = cfg.graphicsAPI;
         g_context->renderAPI = RenderAPI::Create();
     }
 

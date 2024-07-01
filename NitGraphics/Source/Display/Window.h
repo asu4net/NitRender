@@ -4,7 +4,7 @@ namespace Display
 {
     enum class CursorMode { Normal, Disabled, Hidden, Captured };
 
-    struct WindowInitArgs
+    struct WindowCfg
     {
         std::string   title           = "Nit Window";
         int           width           = 1280; 
@@ -18,7 +18,7 @@ namespace Display
     class Window
     {
     public:
-        static std::unique_ptr<Window> Create(const WindowInitArgs& initArgs = {});
+        static std::unique_ptr<Window> Create(const WindowCfg& initArgs = {});
 
         virtual ~Window() = default;
 

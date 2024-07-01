@@ -3,7 +3,7 @@
 
 namespace Display
 {
-    std::unique_ptr<Window> Window::Create(const WindowInitArgs& initArgs /*= {}*/)
+    std::unique_ptr<Window> Window::Create(const WindowCfg& initArgs /*= {}*/)
     {
         return std::make_unique<WindowsWindow>(initArgs);
     }

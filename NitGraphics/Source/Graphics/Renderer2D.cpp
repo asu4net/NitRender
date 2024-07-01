@@ -58,7 +58,7 @@ namespace Graphics
 
     Renderer2DContext* g_context2D = nullptr;
 
-    void InitRender2D(const Render2DInitArgs args)
+    void Create2DRenderer(const Render2DInitArgs args)
     {
         assert(!g_context2D);
         g_context2D = new Renderer2DContext();
@@ -277,7 +277,7 @@ namespace Graphics
         Flush();
     }
 
-    void FinishRender2D()
+    void Destroy2DRenderer()
     {
         assert(g_context2D && g_context2D->quadBatch);
 

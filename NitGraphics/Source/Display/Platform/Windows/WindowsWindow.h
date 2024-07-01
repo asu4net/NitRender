@@ -13,7 +13,7 @@ namespace Display
     class WindowsWindow : public Window
     {
     public:
-        WindowsWindow(const WindowInitArgs& initArgs = {});
+        WindowsWindow(const WindowCfg& initArgs = {});
         WindowsWindow(const Window&) = delete;
         WindowsWindow& operator = (const WindowsWindow&) = delete;
 

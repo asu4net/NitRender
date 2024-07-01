@@ -4,7 +4,7 @@
 
 namespace Display
 {
-    WindowsWindow::WindowsWindow(const WindowInitArgs& initArgs)
+    WindowsWindow::WindowsWindow(const WindowCfg& initArgs)
     {
         bool bInited = glfwInit();
         assert(bInited && "GLFW Window initialisation failed!");
