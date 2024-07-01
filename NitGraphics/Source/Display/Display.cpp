@@ -4,9 +4,9 @@ namespace Display
 {
     std::unique_ptr<Window> g_window;
 
-    void CreateWindow(const WindowInitArgs& initArgs)
+    void CreateWindow(const WindowCfg& cfg)
     {
-        g_window = Window::Create(initArgs);
+        g_window = Window::Create(cfg);
     }
 
     Window& GetWindow()

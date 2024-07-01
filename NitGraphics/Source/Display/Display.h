@@ -4,7 +4,7 @@
 
 namespace Display
 {
-    void    CreateWindow(const WindowInitArgs& initArgs = {});
+    void    CreateWindow(const WindowCfg& cfg = {});
     Window& GetWindow();
     void    UpdateWindow();
     bool    IsWindowOpened();

@@ -29,7 +29,7 @@ int main(int argc, char* argv[])
 {
     Graphics::CreateGraphicsContext();
     Display::CreateWindow();
-    Graphics::InitRender2D();
+    Graphics::Create2DRenderer();
 
     auto texture = Graphics::Texture2D::Create();
     Graphics::Image image("Assets/Cpp.png");
@@ -73,7 +73,7 @@ int main(int argc, char* argv[])
         Display::UpdateWindow();
 	}
 
-    Graphics::FinishRender2D();
+    Graphics::Destroy2DRenderer();
     Display::DestroyWindow();
     Graphics::DestroyGraphicsContext();
 }

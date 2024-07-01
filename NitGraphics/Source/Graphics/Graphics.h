@@ -3,7 +3,7 @@
 
 namespace Graphics
 {
-    struct RenderInitArgs
+    struct GraphicsCfg
     {
         API graphicsAPI = API::OpenGL;
     };
@@ -19,6 +19,6 @@ namespace Graphics
     void DrawElements(const std::shared_ptr<VertexArray>& vertexArray, uint32_t elementCount);
     void SetDepthTestEnabled(bool bEnabled);
 
-    void CreateRenderContext(const RenderInitArgs args = {});
-    void DestroyRenderContext();
+    void CreateGraphicsContext(const GraphicsCfg cfg = {});
+    void DestroyGraphicsContext();
 }

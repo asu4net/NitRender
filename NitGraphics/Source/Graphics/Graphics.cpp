@@ -48,7 +48,7 @@ namespace Graphics
         GetRenderAPI()->SetDepthTestEnabled(bEnabled);
     }
 
-    void CreateGraphicsContext(const RenderInitArgs args)
+    void CreateGraphicsContext(const GraphicsCfg args)
     {
         assert(!g_context);
         g_context = new GraphicsContext();
