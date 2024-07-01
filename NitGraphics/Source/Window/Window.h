@@ -15,12 +15,10 @@ namespace Graphics
         CursorMode  cursorMode  = CursorMode::Normal;
     };
 
-    using WindowUPtr = std::unique_ptr<class Window>;
-
     class Window
     {
     public:
-        static WindowUPtr Create(const WindowInitArgs& initArgs = {});
+        static std::unique_ptr<Window> Create(const WindowInitArgs& initArgs = {});
 
         virtual ~Window() = default;
 
@@ -38,9 +36,7 @@ namespace Graphics
         virtual CursorMode GetCursorMode() const = 0;
 
         virtual bool IsOpened() const = 0;
-
         virtual void Close() = 0;
-
         virtual void Update() = 0;        
     };
 }

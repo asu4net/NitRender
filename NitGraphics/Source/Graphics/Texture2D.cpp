@@ -7,7 +7,7 @@
 
 namespace Graphics
 {
-    Texture2DSPtr Texture2D::Create()
+    std::shared_ptr<Texture2D> Texture2D::Create()
     {
         switch (GetGraphicsAPI())
         {

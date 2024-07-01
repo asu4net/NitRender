@@ -11,7 +11,7 @@ namespace Graphics
 
         void Compile(const char* vertexSource, const char* fragmentSource) override;
 
-        void GetConstantCollection(std::vector<ConstantUPtr>& constants) const override;
+        void GetConstantCollection(std::vector<std::unique_ptr<Constant>>& constants) const override;
 
         void SetConstantFloat     (const char* name, float value)                        const override;
         void SetConstantVec2      (const char* name, const float* value)                 const override;

@@ -4,7 +4,7 @@
 
 namespace Graphics
 {
-    RenderAPISPtr RenderAPI::Create()
+    std::shared_ptr<RenderAPI> RenderAPI::Create()
     {
         switch (GetGraphicsAPI())
         {

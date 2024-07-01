@@ -138,7 +138,7 @@ namespace Graphics
         }
     }
 
-    void OpenGLShader::GetConstantCollection(std::vector<ConstantUPtr>& constants) const
+    void OpenGLShader::GetConstantCollection(std::vector<std::unique_ptr<Constant>>& constants) const
     {
         int32_t uniformCount;
         glGetProgramiv(m_shaderId, GL_ACTIVE_UNIFORMS, &uniformCount);

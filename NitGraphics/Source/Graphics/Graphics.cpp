@@ -5,18 +5,18 @@ namespace Graphics
 {
     struct GraphicsContext
     {
-        GraphicsAPI   graphicsAPI = GraphicsAPI::None;
+        GraphicsAPI   graphicsAPI            = GraphicsAPI::None;
         std::shared_ptr<RenderAPI> renderAPI = nullptr;
-        std::unique_ptr<Window>    window = nullptr;
+        std::unique_ptr<Window>    window    = nullptr;
     };
-
+        
     GraphicsContext* g_context = nullptr;
 
-    GraphicsAPI    GetGraphicsAPI() { assert(g_context); return g_context->graphicsAPI; }
-    std::shared_ptr<RenderAPI>  GetRenderAPI() { assert(g_context); return g_context->renderAPI; }
-    Window& GetWindow() { assert(g_context && g_context->window); return *g_context->window; }
-    bool           IsWindowOpened() { return GetWindow().IsOpened(); }
-    void           UpdateWindow() { GetWindow().Update(); }
+    GraphicsAPI                 GetGraphicsAPI() { assert(g_context); return g_context->graphicsAPI; }
+    std::shared_ptr<RenderAPI>  GetRenderAPI()   { assert(g_context); return g_context->renderAPI; }
+    Window&                     GetWindow()      { assert(g_context && g_context->window); return *g_context->window; }
+    bool                        IsWindowOpened() { return GetWindow().IsOpened(); }
+    void                        UpdateWindow()   { g_context->window->Update(); }
 
     void SetViewport(uint32_t x, uint32_t y, uint32_t width, uint32_t height)
     {

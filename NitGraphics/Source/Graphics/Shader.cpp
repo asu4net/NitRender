@@ -4,7 +4,7 @@
 
 namespace Graphics
 {
-    ConstantUPtr Constant::CreateUnique(const std::string& name, ShaderDataType type, int32_t size)
+    std::unique_ptr<Constant> Constant::CreateUnique(const std::string& name, ShaderDataType type, int32_t size)
     {
         return std::make_unique<Constant>(name, type, size);
     }
@@ -49,7 +49,7 @@ namespace Graphics
         }
     }
 
-    ShaderSPtr Shader::Create()
+    std::shared_ptr<Shader> Shader::Create()
     {
         switch (GetGraphicsAPI())
         {

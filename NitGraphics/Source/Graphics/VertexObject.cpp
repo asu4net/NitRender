@@ -4,7 +4,7 @@
 
 namespace Graphics
 {
-    VertexBufferSPtr VertexBuffer::Create(const void* vertices, uint32_t size)
+    std::shared_ptr<VertexBuffer> VertexBuffer::Create(const void* vertices, uint32_t size)
     {
         switch (GetGraphicsAPI())
         {
@@ -17,7 +17,7 @@ namespace Graphics
         }
     }
 
-    VertexBufferSPtr VertexBuffer::Create(uint32_t size)
+    std::shared_ptr<VertexBuffer> VertexBuffer::Create(uint32_t size)
     {
         switch (GetGraphicsAPI())
         {
@@ -30,7 +30,7 @@ namespace Graphics
         }
     }
 
-    IndexBufferSPtr IndexBuffer::Create(const uint32_t* indices, uint32_t count)
+    std::shared_ptr<IndexBuffer> IndexBuffer::Create(const uint32_t* indices, uint32_t count)
     {
         switch (GetGraphicsAPI())
         {
@@ -43,7 +43,7 @@ namespace Graphics
         }
     }
 
-    VertexArraySPtr VertexArray::Create()
+    std::shared_ptr<VertexArray> VertexArray::Create()
     {
         switch (GetGraphicsAPI())
         {

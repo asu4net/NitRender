@@ -7,7 +7,7 @@ namespace Graphics
     class Material
     {
     public:
-        using ConstantMap = std::unordered_map<std::string, std::unique_ptr<Constant>>;
+        using ConstantMap     = std::unordered_map<std::string, std::unique_ptr<Constant>>;
         using UsedConstantMap = std::unordered_map<std::string, Constant*>;
 
         Material(const std::shared_ptr<Shader>& shader, const std::shared_ptr<Texture2D>& texture = {});
@@ -31,9 +31,9 @@ namespace Graphics
     private:
         Constant* GetConstant(const std::string& name);
 
-        std::shared_ptr<Shader>             m_shader = nullptr;
-        std::shared_ptr<Texture2D>          m_texture = nullptr;
-        ConstantMap            m_constants;
-        UsedConstantMap        m_usedConstants;
+        std::shared_ptr<Shader>    m_shader         = nullptr;
+        std::shared_ptr<Texture2D> m_texture        = nullptr;
+        ConstantMap                m_constants;
+        UsedConstantMap            m_usedConstants;
     };
 }

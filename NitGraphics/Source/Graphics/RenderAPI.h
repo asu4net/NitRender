@@ -5,12 +5,10 @@ namespace Graphics
     class VertexArray;
     class RenderAPI;
 
-    using RenderAPISPtr = std::shared_ptr<RenderAPI>;
-
     class RenderAPI
     {
     public:
-        static RenderAPISPtr Create();
+        static std::shared_ptr<RenderAPI> Create();
 
         virtual ~RenderAPI() {};
         virtual void SetViewport(uint32_t x, uint32_t y, uint32_t width, uint32_t height) const = 0;

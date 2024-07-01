@@ -11,10 +11,10 @@ namespace Graphics
     struct QuadVertex
     {
         glm::vec4 Position = glm::v4_zero;
-        glm::vec4 Tint = glm::v4_white;
-        glm::vec2 UV = glm::v2_zero;
-        int32_t   Texture = 0;
-        int32_t   EntityID = 0;
+        glm::vec4 Tint     = glm::v4_white;
+        glm::vec2 UV       = glm::v2_zero;
+        int32_t   Texture  =  0;
+        int32_t   EntityID = -1;
     };
 
     struct Renderer2DContext
@@ -22,29 +22,30 @@ namespace Graphics
         std::vector<std::shared_ptr<Texture2D>> texturesToBind;
         std::vector<int32_t>                    textureSlots;
         uint32_t                                lastTextureSlot = 1;
-        glm::mat4                               projectionView = glm::m4_identity;
-        std::shared_ptr<Material>               material = nullptr;
-        std::shared_ptr<IndexBuffer>            IBO = nullptr;
+        glm::mat4                               projectionView  = glm::m4_identity;
+        std::shared_ptr<Material>               material        = nullptr;
+        std::shared_ptr<IndexBuffer>            IBO             = nullptr;
 
-        std::shared_ptr<VertexArray>            quadVAO = nullptr;
-        std::shared_ptr<VertexBuffer>           quadVBO = nullptr;
-        QuadVertex*                             quadBatch = nullptr;
-        QuadVertex*                             lastQuadVertex = nullptr;
-        std::shared_ptr<Material>               quadMaterial = nullptr;
-        std::shared_ptr<Texture2D>              whiteTexture = nullptr;
-        uint32_t                                quadCount = 0;
-        uint32_t                                quadIndexCount = 0;
+        // Quad stuff
+        std::shared_ptr<VertexArray>            quadVAO         = nullptr;
+        std::shared_ptr<VertexBuffer>           quadVBO         = nullptr;
+        QuadVertex*                             quadBatch       = nullptr;
+        QuadVertex*                             lastQuadVertex  = nullptr;
+        std::shared_ptr<Material>               quadMaterial    = nullptr;
+        std::shared_ptr<Texture2D>              whiteTexture    = nullptr;
+        uint32_t                                quadCount       = 0;
+        uint32_t                                quadIndexCount  = 0;
     };
 
-    constexpr uint32_t g_maxPrimitives = 1;
+    constexpr uint32_t g_maxPrimitives       = 1;
     constexpr uint32_t g_verticesPerPrimitve = 4;
     constexpr uint32_t g_indicesPerPrimitive = 6;
-    constexpr uint32_t g_maxTextureSlots = 32;
+    constexpr uint32_t g_maxTextureSlots     = 32;
 
     constexpr std::array<glm::vec4, 4> g_vertexPositions = {
         glm::vec4(-.5f, -.5f, 0.f, 1.f), // bottom-left
-        glm::vec4(.5f, -.5f, 0.f, 1.f), // bottom-right
-        glm::vec4(.5f,  .5f, 0.f, 1.f), // top-right
+        glm::vec4( .5f, -.5f, 0.f, 1.f), // bottom-right
+        glm::vec4( .5f,  .5f, 0.f, 1.f), // top-right
         glm::vec4(-.5f,  .5f, 0.f, 1.f)  // top-left
     };
 
@@ -119,65 +120,64 @@ namespace Graphics
             auto quadShader = Shader::Create();
 
             const char* vertexShaderSource = R"(
-        #version 410 core
+                #version 410 core
         
-        layout(location = 0) in vec4 a_Position;
-        layout(location = 1) in vec4 a_Tint;
-        layout(location = 2) in vec2 a_UV;
-        layout(location = 3) in int  a_Texture;
-        layout(location = 4) in int  a_EntityID;
+                layout(location = 0) in vec4 a_Position;
+                layout(location = 1) in vec4 a_Tint;
+                layout(location = 2) in vec2 a_UV;
+                layout(location = 3) in int  a_Texture;
+                layout(location = 4) in int  a_EntityID;
 
-        uniform mat4 u_ProjectionView;        
+                uniform mat4 u_ProjectionView;        
         
-        out vec4     v_Tint;
-        out vec2     v_UV;
-        flat out int v_Texture;
-        flat out int v_EntityID;
+                out vec4     v_Tint;
+                out vec2     v_UV;
+                flat out int v_Texture;
+                flat out int v_EntityID;
 
-        void main()
-        {
-            gl_Position   = u_ProjectionView * a_Position;
-            v_Tint        = a_Tint;
-            v_UV          = a_UV;
-            v_Texture     = a_Texture;
-            v_EntityID    = a_EntityID;
-        }
-    )";
+                void main()
+                {
+                    gl_Position   = u_ProjectionView * a_Position;
+                    v_Tint        = a_Tint;
+                    v_UV          = a_UV;
+                    v_Texture     = a_Texture;
+                    v_EntityID    = a_EntityID;
+                }
+            )";
 
             const char* fragmentShaderSource = R"(        
-        #version 410 core
+                #version 410 core
         
-        layout(location = 0) out vec4 o_Color;
-        layout(location = 1) out int  o_EntityID;
+                layout(location = 0) out vec4 o_Color;
+                layout(location = 1) out int  o_EntityID;
         
-        uniform sampler2D u_Textures[32];
+                uniform sampler2D u_Textures[32];
         
-        in vec4      v_Tint;
-        in vec2      v_UV;
-        flat in int  v_Texture;
-        flat in int  v_EntityID;
+                in vec4      v_Tint;
+                in vec2      v_UV;
+                flat in int  v_Texture;
+                flat in int  v_EntityID;
 
-        void main()
-        {
-            o_Color    = texture(u_Textures[v_Texture], v_UV) * v_Tint;
-            o_EntityID = v_EntityID;
-        }
-    )";
+                void main()
+                {
+                    o_Color    = texture(u_Textures[v_Texture], v_UV) * v_Tint;
+                    o_EntityID = v_EntityID;
+                }
+            )";
 
             quadShader->Compile(vertexShaderSource, fragmentShaderSource);
             g_context2D->quadMaterial = std::make_shared<Material>(quadShader);
         }
-
 
         g_context2D->lastQuadVertex = g_context2D->quadBatch;
     }
 
     void StartBatch()
     {
-        g_context2D->lastQuadVertex = g_context2D->quadBatch;
-        g_context2D->quadCount = 0;
+        g_context2D->lastQuadVertex  = g_context2D->quadBatch;
+        g_context2D->quadCount       = 0;
         g_context2D->lastTextureSlot = 0;
-        g_context2D->quadIndexCount = 0;
+        g_context2D->quadIndexCount  = 0;
     }
 
     void Flush()

@@ -80,8 +80,6 @@ namespace Graphics
         std::vector<BufferElement> m_Elements;
     };
 
-    using VertexBufferSPtr = std::shared_ptr<class VertexBuffer>;
-
     class VertexBuffer
     {
     public:
@@ -98,8 +96,6 @@ namespace Graphics
         virtual const BufferLayout& GetLayout() const = 0;
     };
 
-    using IndexBufferSPtr = std::shared_ptr<class IndexBuffer>;
-
     class IndexBuffer
     {
     public:
@@ -113,12 +109,10 @@ namespace Graphics
         virtual uint32_t GetCount() const = 0;
     };
 
-    using VertexArraySPtr = std::shared_ptr<class VertexArray>;
-
     class VertexArray
     {
     public:
-        static VertexArraySPtr Create();
+        static std::shared_ptr<VertexArray> Create();
 
         virtual ~VertexArray() {};
 

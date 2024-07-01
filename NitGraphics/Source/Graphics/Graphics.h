@@ -10,11 +10,11 @@ namespace Graphics
         GraphicsAPI    API = GraphicsAPI::OpenGL;
     };
 
-    GraphicsAPI    GetGraphicsAPI();
+    GraphicsAPI                 GetGraphicsAPI();
     std::shared_ptr<RenderAPI>  GetRenderAPI();
-    Window& GetWindow();
-    bool           IsWindowOpened();
-    void           UpdateWindow();
+    Window&                     GetWindow();
+    bool                        IsWindowOpened();
+    void                        UpdateWindow();
 
     void SetViewport(uint32_t x, uint32_t y, uint32_t width, uint32_t height);
     void SetClearColor(const glm::vec4& clearColor);
