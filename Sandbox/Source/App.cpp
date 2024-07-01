@@ -67,7 +67,7 @@ int main(int argc, char* argv[])
         glm::mat4 view = glm::inverse(cameraTransform.GetMatrix());
 
         Graphics::BeginScene2D(proj * view);
-        Graphics::DrawQuad(texture, spriteTransform.GetMatrix());
+        Graphics::DrawQuad(texture);
         Graphics::EndScene2D();
 
         Display::UpdateWindow();

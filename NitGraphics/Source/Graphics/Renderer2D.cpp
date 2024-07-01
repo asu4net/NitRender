@@ -176,7 +176,7 @@ namespace Graphics
     {
         g_context2D->lastQuadVertex  = g_context2D->quadBatch;
         g_context2D->quadCount       = 0;
-        g_context2D->lastTextureSlot = 0;
+        g_context2D->lastTextureSlot = 1;
         g_context2D->quadIndexCount  = 0;
     }
 
@@ -211,6 +211,11 @@ namespace Graphics
         g_context2D->material = material;
         g_context2D->projectionView = projection;
         StartBatch();
+    }
+
+    void DrawQuad(const glm::mat4& transform, const glm::vec4& tint)
+    {
+        DrawQuad(nullptr, transform, tint);
     }
 
     int AssignTextureSlot(const std::shared_ptr<Texture2D>& texture)
