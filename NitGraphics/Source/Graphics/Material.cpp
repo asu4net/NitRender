@@ -81,7 +81,7 @@ namespace Graphics
         Constant* constant = GetConstant(name);
         int32_t* floatData = constant->GetIntData();
 
-        for (uint32_t i = 0; i < size; ++i)
+        for (int32_t i = 0; i < size; ++i)
         {
             floatData[i] = value[i];
         }
