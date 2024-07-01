@@ -58,7 +58,7 @@ namespace Graphics
 
     Renderer2DContext* g_context2D = nullptr;
 
-    void Create2DRenderer(const Render2DInitArgs args)
+    void CreateRenderer2D(const Render2DInitArgs args)
     {
         assert(!g_context2D);
         g_context2D = new Renderer2DContext();
@@ -206,7 +206,7 @@ namespace Graphics
         StartBatch();
     }
 
-    void BeginRender2D(const glm::mat4& projection /*= glm::m4_identity */, const std::shared_ptr<Material>& material /*= nullptr*/)
+    void BeginScene2D(const glm::mat4& projection /*= glm::m4_identity */, const std::shared_ptr<Material>& material /*= nullptr*/)
     {
         g_context2D->material = material;
         g_context2D->projectionView = projection;
@@ -272,12 +272,12 @@ namespace Graphics
         g_context2D->quadCount++;
     }
 
-    void EndRender2D()
+    void EndScene2D()
     {
         Flush();
     }
 
-    void Destroy2DRenderer()
+    void DestroyRenderer2D()
     {
         assert(g_context2D && g_context2D->quadBatch);
 

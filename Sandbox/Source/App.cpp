@@ -29,7 +29,7 @@ int main(int argc, char* argv[])
 {
     Graphics::CreateGraphicsContext();
     Display::CreateWindow();
-    Graphics::Create2DRenderer();
+    Graphics::CreateRenderer2D();
 
     auto texture = Graphics::Texture2D::Create();
     Graphics::Image image("Assets/Cpp.png");
@@ -66,14 +66,14 @@ int main(int argc, char* argv[])
         glm::mat4 proj = glm::perspective(glm::radians(fov), getAspect(), nearClip, farClip);
         glm::mat4 view = glm::inverse(cameraTransform.GetMatrix());
 
-        Graphics::BeginRender2D(proj * view);
+        Graphics::BeginScene2D(proj * view);
         Graphics::DrawQuad(texture, spriteTransform.GetMatrix());
-        Graphics::EndRender2D();
+        Graphics::EndScene2D();
 
         Display::UpdateWindow();
 	}
 
-    Graphics::Destroy2DRenderer();
+    Graphics::DestroyRenderer2D();
     Display::DestroyWindow();
     Graphics::DestroyGraphicsContext();
 }
