@@ -11,9 +11,9 @@ namespace Graphics
     {
         switch (GetGraphicsAPI())
         {
-        case GraphicsAPI::OpenGL:
+        case API::OpenGL:
             return std::make_shared<OpenGLTexture2D>();
-        case GraphicsAPI::None:
+        case API::None:
         default:
             return nullptr;
         }

@@ -1,5 +1,8 @@
-#include "NitGraphics.h"
-#include "Graphics/Material.h"
+#include "NitGraphicsPCH.h"
+#include "Graphics\Graphics.h"
+#include "Graphics\Renderer2D.h"
+#include "Display\Display.h"
+#include "Graphics\Texture2D.h"
 
 struct Transform
 {
@@ -24,7 +27,8 @@ struct Transform
 
 int main(int argc, char* argv[])
 {
-    Graphics::InitGraphics();
+    Graphics::CreateGraphicsContext();
+    Display::CreateWindow();
     Graphics::InitRender2D();
 
     auto texture = Graphics::Texture2D::Create();
@@ -44,7 +48,7 @@ int main(int argc, char* argv[])
 
     auto getAspect = []() {
         int w, h;
-        Graphics::GetWindow().GetSize(&w, &h);
+        Display::GetWindow().GetSize(&w, &h);
         const float aspect = static_cast<float>(w) / static_cast<float>(h);
         return aspect;
     };
@@ -52,7 +56,7 @@ int main(int argc, char* argv[])
     float nearClip = 0.1f;
     float farClip  = 1000.f;
 
-	while (Graphics::IsWindowOpened())
+	while (Display::IsWindowOpened())
 	{
         Graphics::ClearScreen();
 
@@ -66,9 +70,10 @@ int main(int argc, char* argv[])
         Graphics::DrawQuad(texture, spriteTransform.GetMatrix());
         Graphics::EndRender2D();
 
-		Graphics::UpdateWindow();
+        Display::UpdateWindow();
 	}
 
-    Graphics::FinishGraphics();
     Graphics::FinishRender2D();
+    Display::DestroyWindow();
+    Graphics::DestroyGraphicsContext();
 }

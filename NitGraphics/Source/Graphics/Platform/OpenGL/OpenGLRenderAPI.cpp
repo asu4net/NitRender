@@ -14,7 +14,7 @@ namespace Graphics
         glClearColor(clearColor.r, clearColor.g, clearColor.b, clearColor.a);
     }
 
-    void OpenGLRenderAPI::Clear() const
+    void OpenGLRenderAPI::ClearScreen() const
     {
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     }

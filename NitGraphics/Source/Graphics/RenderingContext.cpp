@@ -8,9 +8,9 @@ namespace Graphics
     {
         switch (GetGraphicsAPI())
         {
-        case GraphicsAPI::OpenGL:
+        case API::OpenGL:
             return std::make_unique<OpenGLRenderingContext>(windowHandler);
-        case GraphicsAPI::None:
+        case API::None:
         default:
             assert(false && "Invalid API");
             return nullptr;

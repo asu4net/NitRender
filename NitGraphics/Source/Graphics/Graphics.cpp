@@ -1,23 +1,18 @@
 #include "Graphics.h"
-#include "RenderAPI.h"
 
 namespace Graphics
 {
     struct GraphicsContext
     {
-        GraphicsAPI   graphicsAPI            = GraphicsAPI::None;
+        API graphicsAPI = API::None;
         std::shared_ptr<RenderAPI> renderAPI = nullptr;
-        std::unique_ptr<Window>    window    = nullptr;
     };
         
     GraphicsContext* g_context = nullptr;
 
-    GraphicsAPI                 GetGraphicsAPI() { assert(g_context); return g_context->graphicsAPI; }
+    API GetGraphicsAPI() { assert(g_context); return g_context->graphicsAPI; }
     std::shared_ptr<RenderAPI>  GetRenderAPI()   { assert(g_context); return g_context->renderAPI; }
-    Window&                     GetWindow()      { assert(g_context && g_context->window); return *g_context->window; }
-    bool                        IsWindowOpened() { return GetWindow().IsOpened(); }
-    void                        UpdateWindow()   { g_context->window->Update(); }
-
+    
     void SetViewport(uint32_t x, uint32_t y, uint32_t width, uint32_t height)
     {
         GetRenderAPI()->SetViewport(x, y, width, height);
@@ -30,7 +25,7 @@ namespace Graphics
 
     void ClearScreen()
     {
-        GetRenderAPI()->Clear();
+        GetRenderAPI()->ClearScreen();
     }
 
     void SetBlendingEnabled(bool bEnabled)
@@ -53,16 +48,15 @@ namespace Graphics
         GetRenderAPI()->SetDepthTestEnabled(bEnabled);
     }
 
-    void InitGraphics(const RenderInitArgs args)
+    void CreateGraphicsContext(const RenderInitArgs args)
     {
         assert(!g_context);
         g_context = new GraphicsContext();
-        g_context->graphicsAPI = args.API;
+        g_context->graphicsAPI = args.graphicsAPI;
         g_context->renderAPI = RenderAPI::Create();
-        g_context->window = Window::Create(args.WindowSettings);
     }
 
-    void FinishGraphics()
+    void DestroyGraphicsContext()
     {
         assert(g_context);
         delete g_context;

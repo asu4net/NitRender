@@ -1,18 +1,18 @@
 #pragma once
 
-namespace Graphics
+namespace Display
 {
     enum class CursorMode { Normal, Disabled, Hidden, Captured };
 
     struct WindowInitArgs
     {
-        std::string title           = "Nit Window";
-        int         width           = 1280; 
-        int         height          = 720;
-        GraphicsAPI API             = GraphicsAPI::OpenGL;
-        bool        vSync           = true;
-        bool        bStartMaximized = false;
-        CursorMode  cursorMode  = CursorMode::Normal;
+        std::string   title           = "Nit Window";
+        int           width           = 1280; 
+        int           height          = 720;
+        Graphics::API API             = Graphics::API::OpenGL;
+        bool          vSync           = true;
+        bool          bStartMaximized = false;
+        CursorMode    cursorMode      = CursorMode::Normal;
     };
 
     class Window

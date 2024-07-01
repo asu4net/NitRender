@@ -1,4 +1,6 @@
 #include "Material.h"
+#include "Shader.h"
+#include "Texture2D.h"
 
 namespace Graphics
 {

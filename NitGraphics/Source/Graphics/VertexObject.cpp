@@ -8,9 +8,9 @@ namespace Graphics
     {
         switch (GetGraphicsAPI())
         {
-        case GraphicsAPI::OpenGL:
+        case API::OpenGL:
             return std::make_shared<OpenGLVertexBuffer>(vertices, size);
-        case GraphicsAPI::None:
+        case API::None:
         default:
             assert(false);
             return nullptr;
@@ -21,9 +21,9 @@ namespace Graphics
     {
         switch (GetGraphicsAPI())
         {
-        case GraphicsAPI::OpenGL:
+        case API::OpenGL:
             return std::make_shared<OpenGLVertexBuffer>(size);
-        case GraphicsAPI::None:
+        case API::None:
         default:
             assert(false);
             return nullptr;
@@ -34,9 +34,9 @@ namespace Graphics
     {
         switch (GetGraphicsAPI())
         {
-        case GraphicsAPI::OpenGL:
+        case API::OpenGL:
             return std::make_shared<OpenGLIndexBuffer>(indices, count);
-        case GraphicsAPI::None:
+        case API::None:
         default:
             assert(false);
             return nullptr;
@@ -47,9 +47,9 @@ namespace Graphics
     {
         switch (GetGraphicsAPI())
         {
-        case GraphicsAPI::OpenGL:
+        case API::OpenGL:
             return std::make_shared<OpenGLVertexArray>();
-        case GraphicsAPI::None:
+        case API::None:
         default:
             assert(false);
             return nullptr;

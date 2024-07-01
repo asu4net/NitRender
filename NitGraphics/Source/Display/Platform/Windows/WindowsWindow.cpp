@@ -2,7 +2,7 @@
 #include <glfw/glfw3.h>
 #include "Graphics/RenderingContext.h"
 
-namespace Graphics
+namespace Display
 {
     WindowsWindow::WindowsWindow(const WindowInitArgs& initArgs)
     {
@@ -17,7 +17,7 @@ namespace Graphics
 
         glfwMakeContextCurrent(m_windowHandler);
 
-        m_RenderingContext = RenderingContext::Create(m_windowHandler);
+        m_RenderingContext = Graphics::RenderingContext::Create(m_windowHandler);
 
         m_bIsOpened = true;
 

@@ -1,13 +1,14 @@
 #pragma once
-#include "Shader.h"
-#include "Texture2D.h"
 
 namespace Graphics
 {
+    class Shader;
+    class Texture2D;
+
     class Material
     {
     public:
-        using ConstantMap     = std::unordered_map<std::string, std::unique_ptr<Constant>>;
+        using ConstantMap     = std::unordered_map<std::string, std::unique_ptr<class Constant>>;
         using UsedConstantMap = std::unordered_map<std::string, Constant*>;
 
         Material(const std::shared_ptr<Shader>& shader, const std::shared_ptr<Texture2D>& texture = {});

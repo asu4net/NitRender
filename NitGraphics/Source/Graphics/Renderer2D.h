@@ -1,9 +1,10 @@
 #pragma once
-#include "Texture2D.h"
-#include "Material.h"
 
 namespace Graphics
 {
+    class Texture2D;
+    class Material;
+
     struct Render2DInitArgs {};
 
     void InitRender2D(const Render2DInitArgs args = {});

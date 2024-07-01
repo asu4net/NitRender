@@ -68,7 +68,7 @@ namespace Graphics
         Multiply
     };
 
-    enum class GraphicsAPI
+    enum class API
     {
         None, OpenGL
     };

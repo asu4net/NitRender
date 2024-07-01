@@ -1,12 +1,15 @@
 #pragma once
-#include "Window/Window.h"
+#include "Display/Window.h"
 
 struct GLFWwindow;
 
 namespace Graphics
 {
     class RenderingContext;
+}
 
+namespace Display
+{
     class WindowsWindow : public Window
     {
     public:
@@ -37,13 +40,15 @@ namespace Graphics
     private:
         //void SetWindowCallbacks();
 
-        std::string m_title         = "";
-        GraphicsAPI m_API           = GraphicsAPI::None;
-        bool        m_vSync         = false;
-        CursorMode  m_cursorMode    = CursorMode::Normal;
-        GLFWwindow* m_windowHandler = nullptr;
-        bool        m_bIsOpened      = false;
+        std::string   m_title         = "";
+        Graphics::API m_API           = Graphics::API::None;
+        bool          m_vSync         = false;
+        CursorMode    m_cursorMode    = CursorMode::Normal;
+        GLFWwindow*   m_windowHandler = nullptr;
+        bool          m_bIsOpened     = false;
+
+        using TRenderingContext = std::unique_ptr<Graphics::RenderingContext>;
         
-        std::unique_ptr<RenderingContext> m_RenderingContext;
+        TRenderingContext m_RenderingContext;
     };
 }
